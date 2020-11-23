@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="leo" id="2020-11-23 add account table">
+        <createTable tableName="account">
+            <column name="account_nr" type="text">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="balance" type="bigint">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="leo" id="2020-11-23 add questions table">
+    <createTable tableName="questions">
+        <column name="topic" type="text">
+            <constraints nullable="true" primaryKey="false" unique="false"/>
+        </column>
+        <column name="question" type="text">
+            <constraints nullable="true" primaryKey="false" unique="false"/>
+        </column>
+        <column name="answer" type="text">
+            <constraints nullable="true" primaryKey="false" unique="false"/>
+        </column>
+        <column name="result" type="text">
+            <constraints nullable="true" primaryKey="false" unique="false"/>
+        </column>
+    </createTable>
+</changeSet>
+
+
+
+</databaseChangeLog>
