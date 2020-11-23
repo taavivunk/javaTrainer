@@ -29,6 +29,33 @@
             <constraints nullable="true" primaryKey="false" unique="false"/>
         </column>
     </createTable>
+    </changeSet>
+    <changeSet author="leo" id="2020-11-23 add answers_log and result_list table">
+        <createTable tableName="answers_log">
+            <column name="student_id" type="text">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="timestamp" type="number">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="answer" type="text">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="result" type="text">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="result_list">
+            <column name="student_id" type="text">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="timestamp" type="number">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="result" type="number">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
 </changeSet>
 
 
