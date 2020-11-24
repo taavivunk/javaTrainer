@@ -113,6 +113,9 @@
         </addColumn>
 
 
+
+
+
         <modifyDataType tableName="answers" columnName="answer" newDataType="text"/>
 
 
