@@ -4,60 +4,81 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="leo" id="2020-11-23 add account table">
-        <createTable tableName="account">
-            <column name="account_nr" type="text">
-                <constraints nullable="true" primaryKey="false" unique="false"/>
+
+    <changeSet author="taavi" id="2020-11-24 uuesti">
+        <createTable tableName="topics">
+            <column name="t_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true" unique="false"/>
             </column>
-            <column name="balance" type="bigint">
-                <constraints nullable="true" primaryKey="false" unique="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="leo" id="2020-11-23 add questions table">
-    <createTable tableName="questions">
-        <column name="topic" type="text">
-            <constraints nullable="true" primaryKey="false" unique="false"/>
-        </column>
-        <column name="question" type="text">
-            <constraints nullable="true" primaryKey="false" unique="false"/>
-        </column>
-        <column name="answer" type="text">
-            <constraints nullable="true" primaryKey="false" unique="false"/>
-        </column>
-        <column name="result" type="text">
-            <constraints nullable="true" primaryKey="false" unique="false"/>
-        </column>
-    </createTable>
-    </changeSet>
-    <changeSet author="leo" id="2020-11-23 add answers_log and result_list table">
-        <createTable tableName="answers_log">
-            <column name="student_id" type="text">
-                <constraints nullable="true" primaryKey="false" unique="false"/>
-            </column>
-            <column name="timestamp" type="number">
-                <constraints nullable="true" primaryKey="false" unique="false"/>
-            </column>
-            <column name="answer" type="text">
-                <constraints nullable="true" primaryKey="false" unique="false"/>
-            </column>
-            <column name="result" type="text">
+            <column name="t_name" type="varchar(50)">
                 <constraints nullable="true" primaryKey="false" unique="false"/>
             </column>
         </createTable>
+
+        <createTable tableName="questions">
+            <column name="q_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true" unique="false"/>
+            </column>
+            <column name="t_id" type="int">
+                <constraints nullable="true" primaryKey="false" unique="false"
+                             foreignKeyName="topics-id" references="topics(t_id)"/>
+            </column>
+            <column name="question" type="text">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="answers">
+            <column name="a_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true" unique="false"/>
+            </column>
+            <column name="q_id" type="int">
+                <constraints nullable="true" primaryKey="false" unique="false"
+                             foreignKeyName="question-id" references="questions(q_id)"/>
+            </column>
+            <column name="answer" type="boolean">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="answer_log">
+            <column name="a_l_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true" unique="false"/>
+            </column>
+            <column name="student_id" type="varchar(20)">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="timestamp" type="timestamp">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="q_id" type="int">
+                <constraints nullable="true" primaryKey="false" unique="false"
+                             foreignKeyName="question-id" references="questions(q_id)"/>
+            </column>
+            <column name="a_id" type="int">
+                <constraints nullable="true" primaryKey="false" unique="false"
+                             foreignKeyName="answer-id" references="answers(a_id)"/>
+            </column>
+
+        </createTable>
+
         <createTable tableName="result_list">
-            <column name="student_id" type="text">
+            <column name="r_l_id" type="int" autoIncrement="true">
+                <constraints nullable="true" primaryKey="true" unique="false"/>
+            </column>
+            <column name="student_id" type="varchar(20)">
                 <constraints nullable="true" primaryKey="false" unique="false"/>
             </column>
-            <column name="timestamp" type="number">
+            <column name="timestamp" type="timestamp">
                 <constraints nullable="true" primaryKey="false" unique="false"/>
             </column>
-            <column name="result" type="number">
+            <column name="result" type="int">
                 <constraints nullable="true" primaryKey="false" unique="false"/>
             </column>
+
         </createTable>
-</changeSet>
 
 
+    </changeSet>
 
 </databaseChangeLog>
