@@ -80,5 +80,29 @@
 
 
     </changeSet>
+    <changeSet id="24_11_topic_sisestus" author="taavi">
+        <insert tableName="topics">
+            <column name="t_name" value="movie"/>
+        </insert>
+        <insert tableName="topics">
+            <column name="t_name" value="disney"/>
+        </insert>
+        <insert tableName="topics">
+            <column name="t_name" value="starwars"/>
+        </insert>
+        <insert tableName="topics">
+            <column name="t_name" value="harrypotter"/>
+        </insert>
+        <insert tableName="topics">
+            <column name="t_name" value="friends"/>
+        </insert>
+        <insert tableName="topics">
+            <column name="t_name" value="gameofthrones"/>
+        </insert>
+        <insert tableName="topics">
+            <column name="t_name" value="music"/>
+        </insert>
+
+    </changeSet>
 
 </databaseChangeLog>
