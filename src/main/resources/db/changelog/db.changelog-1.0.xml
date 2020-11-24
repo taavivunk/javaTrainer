@@ -104,5 +104,18 @@
         </insert>
 
     </changeSet>
+    <changeSet id="adding_to_answertable_new_column" author="taavi">
+        <addColumn tableName="answers">
+
+            <column name="is_correct" type="boolean">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </addColumn>
+
+
+        <modifyDataType tableName="answers" columnName="answer" newDataType="text"/>
+
+
+    </changeSet>
 
 </databaseChangeLog>

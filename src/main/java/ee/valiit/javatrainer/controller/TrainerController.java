@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class TrainerController {
-@Autowired
+    @Autowired
     TrainerService trainerService;
 
 //    @CrossOrigin
 //    @PostMapping("trainer/newQuestionSet")
-//    public void createQuestion(@RequestBody()){
-//        return ;
+//    public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
+//
+//        return trainerService.newQuestionSet(questionRequest);
 //    }
 }
