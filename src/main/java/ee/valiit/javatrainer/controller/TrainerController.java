@@ -14,10 +14,10 @@ public class TrainerController {
     @Autowired
     TrainerService trainerService;
 
-//    @CrossOrigin
-//    @PostMapping("trainer/newQuestionSet")
-//    public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
-//
-//        return trainerService.newQuestionSet(questionRequest);
-//    }
+    @CrossOrigin
+        @PostMapping("trainer/newQuestionSet")
+    public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
+
+        return trainerService.newQuestionSet(questionRequest);
+    }
 }

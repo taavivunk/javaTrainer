@@ -17,27 +17,30 @@ public class TrainerService {
     @Autowired
     private TrainerRepository trainerRepository;
 
-//    public String newQuestionSet(QuestionRequest questionRequest) {
-//// insert question
-//        String question = questionRequest.getQuestion();
-//        Long topic = questionRequest.getTopicId();
-//
+    public String newQuestionSet(QuestionRequest questionRequest) {
+        // insert question
+        String question = questionRequest.getQuestion();
+        Long topic = questionRequest.getTopicId();
+        // käib repos ja lisab küsimuse aga toob ka tagasi küsimuse id q_id
 
+        Integer questionId = trainerRepository.addNewQuestion(topic, question);
+
+        for (AnswerRequest answer : questionRequest.getAnswers()) {
+            String answer1 = answer.getAnswer();
+            Boolean isCorrect1 = answer.isCorrect();
+            trainerRepository.addNewAnswer(questionId, answer1, isCorrect1);
+
+
+        }
+        return "küsimus lisatud";
+    }
+
+}
 //        for(int i = 0; i < questionRequest.getAnswers().size(); i++){
 //            AnswerRequest answer = questionRequest.getAnswers().get(i);
 //            answer.getAnswer();
 //            answer.isCorrect();
 //        }
-
-//        for (AnswerRequest answer : questionRequest.getAnswers()) {
-//            // teine insert
-//            String a = answer.getAnswer();
-//            Boolean b = answer.isCorrect();
-//            return trainerRepository.
-//
-//        }
-//    }
-
 
 
 //    //TODO CREATE NEW QUESTION
@@ -51,4 +54,4 @@ public class TrainerService {
 //        trainerRepository.addNewQuestion(topicId, question);
 //        return "Küsimus andmebaasi poole saadetud! :)";
 //    }
-}
+
