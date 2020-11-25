@@ -35,23 +35,18 @@ public class TrainerService {
         return "küsimus lisatud";
     }
 
-}
+
+//      TEINE VARIANT FOR TSÜKKLIKS
 //        for(int i = 0; i < questionRequest.getAnswers().size(); i++){
 //            AnswerRequest answer = questionRequest.getAnswers().get(i);
 //            answer.getAnswer();
 //            answer.isCorrect();
 //        }
 
+    public String getNewQuestion(Long t_id, Long q_id) {
+        String getNew = trainerRepository.getNewQuestion(Long topicId, Long QuestionId);
 
-//    //TODO CREATE NEW QUESTION
-//    public String addNewQuestion(Long topicId, String question) {
-//        trainerRepository.addNewQuestion(topicId, question);
-//        return "Küsimus andmebaasi poole saadetud! :)";
-//    }
-//
-//    //TODO CREATE NEW ANSWERS
-//    public String addNewAnswer(List<AnswerRequest> answers) {
-//        trainerRepository.addNewQuestion(topicId, question);
-//        return "Küsimus andmebaasi poole saadetud! :)";
-//    }
 
+        return getNew;
+    }
+}
