@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TrainerController {
@@ -35,11 +36,15 @@ public class TrainerController {
     }
 
     @CrossOrigin
-    @GetMapping("trainer/answers")       // see toob ühe küsimuse vastusevariandid
-    public List getAnswersForQuestion() {
-        return trainerService.getAnswersForQuestion();
+    @GetMapping("trainer/answers/{id}")       // see toob ühe küsimuse vastusevariandid
+    public List getAnswersForQuestion(@PathVariable("id") Long q_id) {
+        return trainerService.getAnswersForQuestion(q_id);
     }
 
-
+    @CrossOrigin
+    @GetMapping("trainer/questionfromtopic/{nr}")       // see toob suvalise küsimuse koos vastutega etteantud teemast
+    public Map getQuestionFromTopic(@PathVariable("nr") Long t_id) {
+        return trainerService.getQFromTopic(t_id);
+    }
 
 }

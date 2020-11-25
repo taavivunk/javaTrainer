@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TrainerService {
@@ -53,13 +56,36 @@ public class TrainerService {
         return result;
     }
 
-    public List getAnswersForQuestion() {
+    public List getAnswersForQuestion(Long q_id) {
 
-        List<AnswerRequest> result = trainerRepository.uusrepofunktsioon();
+        List<String> result = trainerRepository.uusrepofunktsioon(q_id);
 
 
 
         return result;
+    }
+
+    public Map getQFromTopic(long t_id) {
+
+        //List<Object> getQandTopic = new ArrayList();
+
+        //todo küsime siin repost kõik vastava teema küsimused
+        List<String> topicQuestions = trainerRepository.topicQuestions(t_id);
+
+        //todo 2 random selectime neist ühe
+        int qList = topicQuestions.size();
+        int randomQnumber = (int) (Math.random()*qList); //võtsime +1 ära (int) eest
+        String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitud teema listist
+        long questionId = trainerRepository.getQuestionId(randomQuestion); // küsime repost valitud küsimuse id
+        List<String> result = trainerRepository.uusrepofunktsioon(questionId); //küsisme vastused vastavalt küsimuse id-le ja saime listi stringidest
+        Map questionWithAnswers = new HashMap (); // Teeme tagastamiseks uue mapi kus on String+List
+        questionWithAnswers.put("question",randomQuestion );
+        questionWithAnswers.put("answers", result);
+
+        return questionWithAnswers;
+
+
+
     }
 
 }

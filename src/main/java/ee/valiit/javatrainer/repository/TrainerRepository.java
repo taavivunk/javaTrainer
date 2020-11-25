@@ -1,6 +1,7 @@
 package ee.valiit.javatrainer.repository;
 
 import ee.valiit.javatrainer.controller.AnswerRequest;
+import ee.valiit.javatrainer.controller.QuestionRequest;
 import ee.valiit.javatrainer.service.AnswerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -50,7 +51,13 @@ public class TrainerRepository {
         String question = jdbcTemplate.queryForObject(sql, paramMap, String.class);
         return question;
     }
-
+    public long getQuestionId(String question) {
+        String sql = "SELECT q_id from questions where question = :var1";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("var1", question);
+        long questionId = jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+        return questionId;
+    }
 
     public List<AnswerRequest> getAnswers() {
 
@@ -61,14 +68,28 @@ public class TrainerRepository {
 
     }
 
-    public List<AnswerRequest> uusrepofunktsioon() {
+    public List<String> uusrepofunktsioon(long qId) {
 
-        int var1 = 3;
-        String getAnswersToQuestion = "SELECT answer FROM answers where q_id = 3";
+        String getAnswersToQuestion = "SELECT answer FROM answers where q_id = :var";
         Map paraMap = new HashMap();
-        List<AnswerRequest> result = jdbcTemplate.queryForList(getAnswersToQuestion, paraMap, String.class);
+        paraMap.put("var", qId);
+        List<String> result = jdbcTemplate.queryForList(getAnswersToQuestion, paraMap, String.class);
         return result;
 
     }
+
+    public List <String> topicQuestions (long t_id){
+        String sql = "SELECT question FROM questions where t_id =:val";
+        Map paramap = new HashMap();
+        paramap.put("var",t_id);
+        List<String> result = jdbcTemplate.queryForList(sql, paramap, String.class);
+        return result;
+
+
+    }
+
+
+
+
 
  }
