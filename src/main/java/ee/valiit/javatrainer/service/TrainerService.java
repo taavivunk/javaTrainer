@@ -29,8 +29,6 @@ public class TrainerService {
             String answer1 = answer.getAnswer();
             Boolean isCorrect1 = answer.isCorrect();
             trainerRepository.addNewAnswer(questionId, answer1, isCorrect1);
-
-
         }
         return "küsimus lisatud";
     }
@@ -43,17 +41,25 @@ public class TrainerService {
 //            answer.isCorrect();
 //        }
 
-    public String getNewQuestion(Long t_id, Long q_id) {
-        String getNew = trainerRepository.getNewQuestion(t_id, q_id);
-
-
+    public String getNewQuestion(Long q_id) {
+        String getNew = trainerRepository.getNewQuestion(q_id);
         return getNew;
     }
 
 
-    public List getAnswers() {
+    public List getAnswers() {          //  see toob kogu answerite tabeli (4 tulpa) - mitte kasutada äriloogikaks!
 
         List<AnswerRequest> result = trainerRepository.getAnswers();
         return result;
     }
+
+    public List getAnswersForQuestion() {
+
+        List<AnswerRequest> result = trainerRepository.uusrepofunktsioon();
+
+
+
+        return result;
+    }
+
 }

@@ -41,12 +41,11 @@ public class TrainerRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public String getNewQuestion(Long topicId, Long questionId) {
+    public String getNewQuestion(Long questionId) {
         // getting new question from questions db
         // select question from questions where q_id= 3;
         String sql = "SELECT question from questions where q_id = :var2";
         Map<String, Object> paramMap = new HashMap<>();
-//        paramMap.put("var1", topicId);
         paramMap.put("var2", questionId);
         String question = jdbcTemplate.queryForObject(sql, paramMap, String.class);
         return question;
@@ -61,4 +60,15 @@ public class TrainerRepository {
         return result;
 
     }
+
+    public List<AnswerRequest> uusrepofunktsioon() {
+
+        int var1 = 3;
+        String getAnswersToQuestion = "SELECT answer FROM answers where q_id = 3";
+        Map paraMap = new HashMap();
+        List<AnswerRequest> result = jdbcTemplate.queryForList(getAnswersToQuestion, paraMap, String.class);
+        return result;
+
+    }
+
  }

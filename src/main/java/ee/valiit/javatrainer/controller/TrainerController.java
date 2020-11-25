@@ -12,29 +12,33 @@ public class TrainerController {
     TrainerService trainerService;
 
     @CrossOrigin
-        @PostMapping("trainer/newQuestionSet")
+    @PostMapping("trainer/newQuestionSet")
     public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
 
         return trainerService.newQuestionSet(questionRequest);
 
 
     }
+
     @CrossOrigin
-    @GetMapping("trainer/getQuestion")
-    public String getNewQuestion(@RequestParam("topic") Long t_id,
-                              @RequestParam("question") Long q_id) {
-
-        return trainerService.getNewQuestion(t_id, q_id);
-
+    @GetMapping("trainer/question/{id}")
+    // tagastada küsimuse (objekt) ja vastuse variandid (list)
+    public String getNewQuestion(@PathVariable("id") Long q_id) {
+        return trainerService.getNewQuestion(q_id);
 
     }
+
     @CrossOrigin
-    @GetMapping("trainer/getAnswers")
+    @GetMapping("trainer/allAnswers")       // see toob kogu vastuste andmebaasi
     public List getAnswers() {
         return trainerService.getAnswers();
     }
 
-
+    @CrossOrigin
+    @GetMapping("trainer/answers")       // see toob ühe küsimuse vastusevariandid
+    public List getAnswersForQuestion() {
+        return trainerService.getAnswersForQuestion();
+    }
 
 
 

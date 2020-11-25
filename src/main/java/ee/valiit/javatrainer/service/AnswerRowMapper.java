@@ -12,6 +12,8 @@ public class AnswerRowMapper implements RowMapper<AnswerRequest> {
         AnswerRequest answer = new AnswerRequest();
         answer.setAnswer(resultSet.getString("answer"));
         answer.setCorrect(resultSet.getBoolean("is_correct"));
+        answer.setQuestionId(resultSet.getLong("q_id"));
+        answer.setAnswerId(resultSet.getLong("a_id"));
         return answer;
     }
 
