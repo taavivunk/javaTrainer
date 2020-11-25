@@ -38,7 +38,18 @@ public class TrainerRepository {
         paramMap.put("var2", answer);
         paramMap.put("var3", correct);
         jdbcTemplate.update(sql, paramMap);
-
     }
+
+    public String getNewQuestion(Long topicId, Long questionId) {
+        // getting new question from questions db
+        String sql = "FROM questions GET (t_id, q_id) VALUES (:var1, :var2)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("var1", topicId);
+        paramMap.put("var2", questionId);
+        String question = jdbcTemplate.queryForObject(sql, paramMap, String.class);
+        return question;
+    }
+
+
 
  }
