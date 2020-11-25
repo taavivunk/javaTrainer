@@ -49,4 +49,11 @@ public class TrainerService {
 
         return getNew;
     }
+
+
+    public List getAnswers() {
+
+        List<AnswerRequest> result = trainerRepository.getAnswers();
+        return result;
+    }
 }

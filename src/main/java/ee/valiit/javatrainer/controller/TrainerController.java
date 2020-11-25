@@ -28,6 +28,11 @@ public class TrainerController {
 
 
     }
+    @CrossOrigin
+    @GetMapping("trainer/getAnswers")
+    public List getAnswers() {
+        return trainerService.getAnswers();
+    }
 
 
 

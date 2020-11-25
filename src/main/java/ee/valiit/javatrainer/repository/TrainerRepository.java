@@ -1,6 +1,7 @@
 package ee.valiit.javatrainer.repository;
 
 import ee.valiit.javatrainer.controller.AnswerRequest;
+import ee.valiit.javatrainer.service.AnswerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -52,5 +53,12 @@ public class TrainerRepository {
     }
 
 
+    public List<AnswerRequest> getAnswers() {
 
+        String getAnswers = "SELECT * FROM answers";
+        Map paraMap = new HashMap();
+        List<AnswerRequest> result = jdbcTemplate.query(getAnswers, paraMap, new AnswerRowMapper());
+        return result;
+
+    }
  }
