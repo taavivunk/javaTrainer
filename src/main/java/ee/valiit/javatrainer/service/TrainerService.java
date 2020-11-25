@@ -44,7 +44,7 @@ public class TrainerService {
 //        }
 
     public String getNewQuestion(Long t_id, Long q_id) {
-        String getNew = trainerRepository.getNewQuestion(Long topicId, Long QuestionId);
+        String getNew = trainerRepository.getNewQuestion(t_id, q_id);
 
 
         return getNew;

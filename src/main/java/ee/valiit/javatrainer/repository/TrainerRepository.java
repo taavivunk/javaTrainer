@@ -42,9 +42,10 @@ public class TrainerRepository {
 
     public String getNewQuestion(Long topicId, Long questionId) {
         // getting new question from questions db
-        String sql = "FROM questions GET (t_id, q_id) VALUES (:var1, :var2)";
+        // select question from questions where q_id= 3;
+        String sql = "SELECT question from questions where q_id = :var2";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("var1", topicId);
+//        paramMap.put("var1", topicId);
         paramMap.put("var2", questionId);
         String question = jdbcTemplate.queryForObject(sql, paramMap, String.class);
         return question;
