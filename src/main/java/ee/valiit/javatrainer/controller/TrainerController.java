@@ -18,6 +18,7 @@ public class TrainerController {
 
         return trainerService.newQuestionSet(questionRequest);
 
+
     }
 
     @CrossOrigin
@@ -29,19 +30,13 @@ public class TrainerController {
     }
 
     @CrossOrigin
-    @GetMapping("trainer/allAnswers")       //  toob kogu vastuste andmebaasi (rowmapper)
+    @GetMapping("trainer/allAnswers")       // see toob kogu vastuste andmebaasi
     public List getAnswers() {
         return trainerService.getAnswers();
     }
 
     @CrossOrigin
-    @GetMapping("trainer/AnswersAndId/{id}")       //  toob vastused koos id-ga (rowmapper)
-    public List getAnswersAndId(@PathVariable("id") Long q_id) {
-        return trainerService.getAnswersAndId(q_id);
-    }
-
-    @CrossOrigin
-    @GetMapping("trainer/answers/{id}")       //  toob ühe küsimuse vastusevariandid
+    @GetMapping("trainer/answers/{id}")       // see toob ühe küsimuse vastusevariandid
     public List getAnswersForQuestion(@PathVariable("id") Long q_id) {
         return trainerService.getAnswersForQuestion(q_id);
     }

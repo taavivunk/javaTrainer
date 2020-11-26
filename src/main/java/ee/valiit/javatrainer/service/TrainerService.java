@@ -28,7 +28,7 @@ public class TrainerService {
         // käib repos ja lisab küsimuse aga toob ka tagasi küsimuse id q_id
 
         Integer questionId = trainerRepository.addNewQuestion(topic, question);
-
+        //
         for (AnswerRequest answer : questionRequest.getAnswers()) {
             String answer1 = answer.getAnswer();
             Boolean isCorrect1 = answer.isCorrect();

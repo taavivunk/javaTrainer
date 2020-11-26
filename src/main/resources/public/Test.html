@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<h1>Test environment</h1>
+<input id="studentName" placeholder="Your name" type="text">
+<button id="startButton">Generate</button>
+<br><br><br>
+<div class="myDiv">
+    <div id="output1"></div>
+</div>
+<br>
+<table id="questionTable" border="1"></table>
+<br>
+<button id="submitButton">Submit</button>
+<div class="myDiv">
+    <div id="output2"></div>
+</div>
+<!--   TODO
+        luuakse test, võttes andmebaasist ühest teemast üks juhuslik küsimus                OK!
+        brauseris kuvatakse küsimus ja 4 vastusevarianti                                    OK!
+        õpilane vastab radio-buttoniga ja esitab vastuse "SUBMIT ANSWER" nupuga             OK!
+        vastused kirjutatakse vastuste andmebaasi                                           NEEDS TESTING
+        too servicest controllerisse q_id ja 4 x a_id, tulemuste andmebaasi kirjutamiseks
+        autmaatkontroll kontrollib vastuse õigsust, kirjutab tulemuse result_list           NOT STARTED
+        andmebaasi ja kuvab brauseris õpilasele
+//-->
+<script>
+    startButton.onclick = function () {
+        let student_name = document.getElementById("studentName").value;
+        fetch("http://localhost:8090/trainer/questionfromtopic/2")
+            .then(function (result) {
+                    return result.json();
+                }
+            ).then(
+            function (result) {
+                let question = result.question;
+                document.getElementById("output1").innerText = question;
+                let questionId = result.q_id;
+                for (let i = 0; i < result.answers.length; i++) {
+                    let rowElement = document.createElement("tr");
+                    let cellElement = document.createElement("td");
+                    cellElement.innerText = result.answers[i].answer;
+                    rowElement.append(cellElement);
+                    let cellElement2 = document.createElement("td");
+                    cellElement2.innerHTML = '<input type="radio" id="r' + i + '" name="checkIfTrue" value="true">';
+                    rowElement.append(cellElement2);
+                    let questionTable = document.getElementById("questionTable");
+                    questionTable.append(rowElement);
+                }
+                submitButton.onclick = function () {        // tagasta q_id, student answer (a_id), timestamp(Javas) ja student name
+                    let trainer_answer = null;              // answer id sisse
+                    let student_answer = null;              // õpilase vastuse algväärtus
+                    for (let i = 0; i < result.answers.length; i++) {
+                        trainer_answer = result.answers[i].answerId;
+                        if (document.getElementById("r" + i).checked) {
+                            student_answer = trainer_answer;// salvestab õpilase vastuseks a_id
+                            console.log("Received answer " + student_answer + " to question " + questionId);
+                        }
+                    }
+                    fetch("http://localhost:8090/trainer/submitAnswer?q_id=" + questionId +
+                        "&a_id=" + student_answer + "&student_id=" + student_name,
+                        {
+                            method: "POST",
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                        .then(function (result) {
+                                return result.json();
+                            }
+                        ).then(function (result) {
+                        (console.log("Answer logged"));
+                    })
+                }
+            }
+        )
+            .catch(UnknownError => alert(UnknownError))
+    }
+</script>
+
+
+</body>
+</html>
