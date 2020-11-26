@@ -29,9 +29,15 @@ public class TrainerController {
     }
 
     @CrossOrigin
-    @GetMapping("trainer/allAnswers")       //  toob kogu vastuste andmebaasi
+    @GetMapping("trainer/allAnswers")       //  toob kogu vastuste andmebaasi (rowmapper)
     public List getAnswers() {
         return trainerService.getAnswers();
+    }
+
+    @CrossOrigin
+    @GetMapping("trainer/AnswersAndId/{id}")       //  toob vastused koos id-ga (rowmapper)
+    public List getAnswersAndId(@PathVariable("id") Long q_id) {
+        return trainerService.getAnswersAndId(q_id);
     }
 
     @CrossOrigin

@@ -1,6 +1,7 @@
 package ee.valiit.javatrainer.service;
 
 
+import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
 import ee.valiit.javatrainer.controller.AnswerRequest;
 import ee.valiit.javatrainer.controller.QuestionRequest;
 import ee.valiit.javatrainer.repository.TrainerRepository;
@@ -59,6 +60,13 @@ public class TrainerService {
         return result;
     }
 
+
+    public List getAnswersAndId(Long q_id) {  //toob answerite tabelist vastused+id vastavalt ette antud küsimuse id-le
+        List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(q_id);
+        return answerTableall;
+    }
+
+
     public List getAnswersForQuestion(Long q_id) {
 
         List<String> result = trainerRepository.uusrepofunktsioon(q_id);
@@ -73,14 +81,13 @@ public class TrainerService {
         int randomQnumber = (int) (Math.random()*qList); //random selectime neist ühe
         String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitud teema listist
         long questionId = trainerRepository.getQuestionId(randomQuestion); // küsime repost valitud küsimuse id
-        List<String> result = trainerRepository.uusrepofunktsioon(questionId); //küsisme vastused vastavalt küsimuse id-le ja saime listi stringidest
+        List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(questionId); //küsime repost küsimused kood nende id-dega
         Map questionWithAnswers = new HashMap (); // teeme tagastamiseks uue mapi, mille sees on String + List
         questionWithAnswers.put("question",randomQuestion );
-        questionWithAnswers.put("answers", result);
+        questionWithAnswers.put("answers", answerTableall); //vastused koos id-dega
+        questionWithAnswers.put("q_id", questionId); //lisame ka küsimuse id
 
         return questionWithAnswers;
-
-
 
     }
 

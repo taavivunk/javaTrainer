@@ -1,7 +1,9 @@
 package ee.valiit.javatrainer.repository;
 
+import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
 import ee.valiit.javatrainer.controller.AnswerRequest;
 import ee.valiit.javatrainer.controller.QuestionRequest;
+import ee.valiit.javatrainer.service.AnswerAndIdRowMapper;
 import ee.valiit.javatrainer.service.AnswerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -66,6 +68,16 @@ public class TrainerRepository {
         List<AnswerRequest> result = jdbcTemplate.query(getAnswers, paraMap, new AnswerRowMapper());
         return result;
     }
+
+    public List<AnswerAndIdRequest> getAnswersAndIds(long qId) {
+
+        String getAnswersAndIds = "SELECT * FROM answers where q_id =:var";
+        Map paraMap = new HashMap();
+        paraMap.put("var", qId);
+        List<AnswerAndIdRequest> result = jdbcTemplate.query(getAnswersAndIds, paraMap, new AnswerAndIdRowMapper());
+        return result;
+    }
+
 
     public List<String> uusrepofunktsioon(long qId) {
 
