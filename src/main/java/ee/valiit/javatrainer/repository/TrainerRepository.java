@@ -65,7 +65,6 @@ public class TrainerRepository {
         Map paraMap = new HashMap();
         List<AnswerRequest> result = jdbcTemplate.query(getAnswers, paraMap, new AnswerRowMapper());
         return result;
-
     }
 
     public List<String> uusrepofunktsioon(long qId) {
@@ -75,21 +74,15 @@ public class TrainerRepository {
         paraMap.put("var", qId);
         List<String> result = jdbcTemplate.queryForList(getAnswersToQuestion, paraMap, String.class);
         return result;
-
     }
 
     public List <String> topicQuestions (long t_id){
-        String sql = "SELECT question FROM questions where t_id =:val";
+        String sql = "SELECT question FROM questions where t_id =:var";
         Map paramap = new HashMap();
         paramap.put("var",t_id);
         List<String> result = jdbcTemplate.queryForList(sql, paramap, String.class);
         return result;
-
-
     }
-
-
-
 
 
  }

@@ -6,8 +6,7 @@ import ee.valiit.javatrainer.controller.QuestionRequest;
 import ee.valiit.javatrainer.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +18,7 @@ public class TrainerService {
 
     @Autowired
     private TrainerRepository trainerRepository;
+
 
     public String newQuestionSet(QuestionRequest questionRequest) {
         // insert question
@@ -37,22 +37,25 @@ public class TrainerService {
     }
 
 
-//      TEINE VARIANT FOR TSÜKKLIKS
-//        for(int i = 0; i < questionRequest.getAnswers().size(); i++){
-//            AnswerRequest answer = questionRequest.getAnswers().get(i);
-//            answer.getAnswer();
-//            answer.isCorrect();
-//        }
+//      TEINE VARIANT FOR TSÜKLIKS
+//      for(int i = 0; i < questionRequest.getAnswers().size(); i++){
+//      AnswerRequest answer = questionRequest.getAnswers().get(i);
+//      answer.getAnswer();
+//      answer.isCorrect();
+
 
     public String getNewQuestion(Long q_id) {
+
         String getNew = trainerRepository.getNewQuestion(q_id);
+
         return getNew;
     }
 
 
-    public List getAnswers() {          //  see toob kogu answerite tabeli (4 tulpa) - mitte kasutada äriloogikaks!
+    public List getAnswers() {      // toob kogu answerite tabeli (4 tulpa) - mitte kasutada äriloogikaks!
 
         List<AnswerRequest> result = trainerRepository.getAnswers();
+
         return result;
     }
 
@@ -60,25 +63,18 @@ public class TrainerService {
 
         List<String> result = trainerRepository.uusrepofunktsioon(q_id);
 
-
-
         return result;
     }
 
     public Map getQFromTopic(long t_id) {
 
-        //List<Object> getQandTopic = new ArrayList();
-
-        //todo küsime siin repost kõik vastava teema küsimused
-        List<String> topicQuestions = trainerRepository.topicQuestions(t_id);
-
-        //todo 2 random selectime neist ühe
+        List<String> topicQuestions = trainerRepository.topicQuestions(t_id);//küsime siin repost kõik vastava teema küsimused
         int qList = topicQuestions.size();
-        int randomQnumber = (int) (Math.random()*qList); //võtsime +1 ära (int) eest
+        int randomQnumber = (int) (Math.random()*qList); //random selectime neist ühe
         String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitud teema listist
         long questionId = trainerRepository.getQuestionId(randomQuestion); // küsime repost valitud küsimuse id
         List<String> result = trainerRepository.uusrepofunktsioon(questionId); //küsisme vastused vastavalt küsimuse id-le ja saime listi stringidest
-        Map questionWithAnswers = new HashMap (); // Teeme tagastamiseks uue mapi kus on String+List
+        Map questionWithAnswers = new HashMap (); // teeme tagastamiseks uue mapi, mille sees on String + List
         questionWithAnswers.put("question",randomQuestion );
         questionWithAnswers.put("answers", result);
 
