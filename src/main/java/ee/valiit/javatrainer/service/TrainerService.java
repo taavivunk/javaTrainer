@@ -78,7 +78,8 @@ public class TrainerService {
 
         List<String> topicQuestions = trainerRepository.topicQuestions(t_id);//küsime siin repost kõik vastava teema küsimused
         int qList = topicQuestions.size();
-        int randomQnumber = (int) (Math.random()*qList); //random selectime neist ühe
+        double random = Math.random();
+        int randomQnumber = (int) (random*qList); //random selectime neist ühe
         String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitud teema listist
         long questionId = trainerRepository.getQuestionId(randomQuestion); // küsime repost valitud küsimuse id
         List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(questionId); //küsime repost küsimused kood nende id-dega
@@ -91,4 +92,11 @@ public class TrainerService {
 
     }
 
+
+//TODO töö pooleli!
+    public String submitAnswer(long q_id, long a_id, String student_id) {
+        String subAns = trainerRepository.submitAnswer(q_id, a_id, student_id);
+
+        return subAns;
+    }
 }

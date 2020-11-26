@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +95,20 @@ public class TrainerRepository {
         paramap.put("var",t_id);
         List<String> result = jdbcTemplate.queryForList(sql, paramap, String.class);
         return result;
+    }
+//TODO töö pooleli!
+    public String submitAnswer(long q_id, long a_id, String student_id){
+        String sql = "INSERT INTO answer_log (q_id, a_id, student_id) VALUES (:var1, :var2, :var3, var4)";
+        Map<String, Object> paraMap = new HashMap<>();
+        paraMap.put("var1", q_id);
+        paraMap.put("var2", a_id);
+        paraMap.put("var3", student_id);
+        paraMap.put("var4", new Timestamp(System.currentTimeMillis()));
+        jdbcTemplate.update(sql, paraMap);
+
+        return "Küsimus ja vastus lisatud logisse (tabelisse answer_log)!";
+
+
     }
 
 

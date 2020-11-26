@@ -18,7 +18,6 @@ public class TrainerController {
 
         return trainerService.newQuestionSet(questionRequest);
 
-
     }
 
     @CrossOrigin
@@ -30,13 +29,19 @@ public class TrainerController {
     }
 
     @CrossOrigin
-    @GetMapping("trainer/allAnswers")       // see toob kogu vastuste andmebaasi
+    @GetMapping("trainer/allAnswers")       //  toob kogu vastuste andmebaasi (rowmapper)
     public List getAnswers() {
         return trainerService.getAnswers();
     }
 
     @CrossOrigin
-    @GetMapping("trainer/answers/{id}")       // see toob ühe küsimuse vastusevariandid
+    @GetMapping("trainer/AnswersAndId/{id}")       //  toob vastused koos id-ga (rowmapper)
+    public List getAnswersAndId(@PathVariable("id") Long q_id) {
+        return trainerService.getAnswersAndId(q_id);
+    }
+
+    @CrossOrigin
+    @GetMapping("trainer/answers/{id}")       //  toob ühe küsimuse vastusevariandid
     public List getAnswersForQuestion(@PathVariable("id") Long q_id) {
         return trainerService.getAnswersForQuestion(q_id);
     }
@@ -45,6 +50,19 @@ public class TrainerController {
     @GetMapping("trainer/questionfromtopic/{nr}")       // see toob suvalise küsimuse koos vastutega etteantud teemast
     public Map getQuestionFromTopic(@PathVariable("nr") Long t_id) {
         return trainerService.getQFromTopic(t_id);
+    }
+
+
+    //TODO TÖÖ POOLELI!
+    @CrossOrigin
+    @PostMapping("trainer/submitAnswer")
+    public String submitAnswer(@RequestParam("qid") long q_id,
+                               @RequestParam("aid") long a_id,
+                               @RequestParam("sid") String student_id) {
+
+        return trainerService.submitAnswer(q_id, a_id, student_id);
+
+
     }
 
 }
