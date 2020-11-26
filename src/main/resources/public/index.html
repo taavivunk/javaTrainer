@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>JAVA TRAINER | Küsimuste sisestamine</h1>
+<h1>JAVA TRAINER | Küsimuste sisestamine </h1>
 
 <h4> Vali teema:</h4>
 
@@ -168,6 +168,15 @@
                     ]
 
                 })
+            }).then(
+            function () {
+                // peale sisestamist teavitab ja enter vajutades tühejendab osad väljad uue sisestuse jaoks
+                alert("Küsimus andmebaasi sisestatud!");
+                let ans1 = document.getElementById("answer1").value = "";
+                let ans2 = document.getElementById("answer2").value = "";
+                let ans3 = document.getElementById("answer3").value = "";
+                let ans4 = document.getElementById("answer4").value = "";
+                let question = document.getElementById("question").value = "";
             })
     }
 
