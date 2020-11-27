@@ -20,15 +20,12 @@ public class TrainerService {
     @Autowired
     private TrainerRepository trainerRepository;
 
-
     public String newQuestionSet(QuestionRequest questionRequest) {
         // insert question
         String question = questionRequest.getQuestion();
         Long topic = questionRequest.getTopicId();
         // käib repos ja lisab küsimuse aga toob ka tagasi küsimuse id q_id
-
         Integer questionId = trainerRepository.addNewQuestion(topic, question);
-        //
         for (AnswerRequest answer : questionRequest.getAnswers()) {
             String answer1 = answer.getAnswer();
             Boolean isCorrect1 = answer.isCorrect();
@@ -46,17 +43,13 @@ public class TrainerService {
 
 
     public String getNewQuestion(Long q_id) {
-
         String getNew = trainerRepository.getNewQuestion(q_id);
-
         return getNew;
     }
 
 
     public List getAnswers() {      // toob kogu answerite tabeli (4 tulpa) - mitte kasutada äriloogikaks!
-
         List<AnswerRequest> result = trainerRepository.getAnswers();
-
         return result;
     }
 
@@ -68,14 +61,11 @@ public class TrainerService {
 
 
     public List getAnswersForQuestion(Long q_id) {
-
         List<String> result = trainerRepository.uusrepofunktsioon(q_id);
-
         return result;
     }
 
     public Map getQFromTopic(long t_id) {
-
         List<String> topicQuestions = trainerRepository.topicQuestions(t_id);//küsime siin repost kõik vastava teema küsimused
         int qList = topicQuestions.size();
         double random = Math.random();
@@ -87,16 +77,13 @@ public class TrainerService {
         questionWithAnswers.put("question",randomQuestion );
         questionWithAnswers.put("answers", answerTableall); //vastused koos id-dega
         questionWithAnswers.put("q_id", questionId); //lisame ka küsimuse id
-
         return questionWithAnswers;
-
     }
 
 
 //TODO töö pooleli!
     public String submitAnswer(long q_id, long a_id, String student_id) {
         String subAns = trainerRepository.submitAnswer(q_id, a_id, student_id);
-
-        return subAns;
+        return "vastus salvestatud";
     }
 }
