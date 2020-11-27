@@ -40,6 +40,7 @@
                 let question = result.question;
                 document.getElementById("output1").innerText = question;
                 let questionId = result.q_id;
+                questionTable.innerHTML = ""; //teeb tühjaks peale restarti
                 for (let i = 0; i < result.answers.length; i++) {
                     let rowElement = document.createElement("tr");
                     let cellElement = document.createElement("td");
