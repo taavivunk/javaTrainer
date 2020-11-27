@@ -61,8 +61,8 @@
                             console.log("Received answer " + student_answer + " to question " + questionId);
                         }
                     }
-                    fetch("http://localhost:8090/trainer/submitAnswer?q_id=" + questionId +
-                        "&a_id=" + student_answer + "&student_id=" + student_name,
+                    fetch("http://localhost:8090/trainer/submitAnswer?qid=" + questionId +
+                        "&aid=" + student_answer + "&sid=" + student_name,
                         {
                             method: "POST",
                             headers: {'Content-Type': 'application/json'}

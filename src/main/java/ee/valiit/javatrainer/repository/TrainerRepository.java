@@ -98,7 +98,7 @@ public class TrainerRepository {
     }
 //TODO töö pooleli!
     public String submitAnswer(long q_id, long a_id, String student_id){
-        String sql = "INSERT INTO answer_log (q_id, a_id, student_id) VALUES (:var1, :var2, :var3, var4)";
+        String sql = "INSERT INTO answer_log (q_id, a_id, student_id, timestamp) VALUES (:var1, :var2, :var3, :var4)";
         Map<String, Object> paraMap = new HashMap<>();
         paraMap.put("var1", q_id);
         paraMap.put("var2", a_id);
