@@ -52,15 +52,23 @@ public class TrainerController {
         return trainerService.getQFromTopic(t_id);
     }
 
-
-    //TODO TÖÖ POOLELI!
     @CrossOrigin
-    @PostMapping("trainer/submitAnswer")
+    @GetMapping("trainer/testpackage") //toob kõikidest teemadest ühe küsimuse koos vastustega
+    public Map getFullPackage() {
+        return trainerService.createFullPackage();
+    }
+
+
+
+
+    @CrossOrigin
+    @PostMapping("trainer/submitAnswer") //toob frondist vastatud küsimuse tagasi ja saadab answer_log'i
     public String submitAnswer(@RequestParam("qid") long q_id,
                                @RequestParam("aid") long a_id,
                                @RequestParam("sid") String student_id) {
 
         return trainerService.submitAnswer(q_id, a_id, student_id);
+
 
 
     }

@@ -33,7 +33,7 @@
     </tr>
 
     <td> 5. Friends</td>
-    <td><input type="radio" name="1"value="5"></td>
+    <td><input type="radio" name="1" value="5"></td>
     </tr>
 
     <td> 6. Game of Trones</td>
@@ -70,7 +70,12 @@
         <td><h4> Sisesta vastus (1):</h4></td>
         <td>
 
-            <table border = "0"> <tr><td>   <textarea id="answer1"> </textarea>     </td><td> true    <input id= "a1" align="right" type="radio" name="2" >   </td> </tr> </table>
+            <table border="0">
+                <tr>
+                    <td><textarea id="answer1"> </textarea></td>
+                    <td> true <input id="a1" align="right" type="radio" name="2"></td>
+                </tr>
+            </table>
 
         </td>
 
@@ -79,7 +84,12 @@
         <td><h4> Sisesta vastus (2):</h4></td>
         <td>
 
-            <table border = "0"> <tr><td>   <textarea id="answer2"> </textarea>     </td><td> true    <input id= "a2" align="right" type="radio" name="2" >   </td> </tr> </table>
+            <table border="0">
+                <tr>
+                    <td><textarea id="answer2"> </textarea></td>
+                    <td> true <input id="a2" align="right" type="radio" name="2"></td>
+                </tr>
+            </table>
 
         </td>
 
@@ -88,7 +98,12 @@
         <td><h4> Sisesta vastus (3):</h4></td>
         <td>
 
-            <table border = "0"> <tr><td>   <textarea id="answer3"> </textarea>     </td><td> true    <input id= "a3" align="right" type="radio" name="2" >   </td> </tr> </table>
+            <table border="0">
+                <tr>
+                    <td><textarea id="answer3"> </textarea></td>
+                    <td> true <input id="a3" align="right" type="radio" name="2"></td>
+                </tr>
+            </table>
 
         </td>
 
@@ -97,7 +112,12 @@
         <td><h4> Sisesta vastus (4):</h4></td>
         <td>
 
-            <table border = "0"> <tr><td>   <textarea id="answer4"> </textarea>     </td><td> true    <input id= "a4" align="right" type="radio" name="2" >   </td> </tr> </table>
+            <table border="0">
+                <tr>
+                    <td><textarea id="answer4"> </textarea></td>
+                    <td> true <input id="a4" align="right" type="radio" name="2"></td>
+                </tr>
+            </table>
 
         </td>
 
@@ -107,7 +127,7 @@
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <button id="submit" > SISESTA </button>
+<button id="submit"> SISESTA</button>
 
 <script>
 
@@ -116,8 +136,8 @@
 
         let radioList = document.getElementsByName("1");
         let topicValue;
-        for(let i = 0; i < radioList.length; i++){
-            if(radioList[i].checked){
+        for (let i = 0; i < radioList.length; i++) {
+            if (radioList[i].checked) {
                 topicValue = radioList[i].value;
             }
         }
@@ -146,7 +166,7 @@
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify( {
+                body: JSON.stringify({
                     "topicId": topicValue,
                     "question": question,
                     "answers": [{
@@ -179,7 +199,6 @@
                 let question = document.getElementById("question").value = "";
             })
     }
-
 
 
 </script>

@@ -79,11 +79,36 @@ public class TrainerService {
         questionWithAnswers.put("q_id", questionId); //lisame ka küsimuse id
         return questionWithAnswers;
     }
+    public Map createFullPackage() {
+
+        Map fullPackage = new HashMap();
+
+        for (int i = 1; i < 8; i++) {
+            Map temporary = new HashMap();
+            temporary = getQFromTopic(i);
+            String key = "key" + i;
+            fullPackage.put(key,temporary);
+        }
+
+        return fullPackage;
+    }
 
 
-//TODO töö pooleli!
+
+    public String answerCheck(long q_id, long a_id, String student_id) {
+        boolean trueOrFalse = trainerRepository.trueOrFalse(a_id); //see toob vastavad a_id boolean vastuse
+        String result = String.valueOf(trueOrFalse);
+        return result;
+    }
+
     public String submitAnswer(long q_id, long a_id, String student_id) {
         String subAns = trainerRepository.submitAnswer(q_id, a_id, student_id);
-        return "vastus salvestatud";
+        String firstCheck = answerCheck(q_id,a_id,student_id);
+
+
+        System.out.println(firstCheck);
+        return firstCheck;
     }
+
+
 }

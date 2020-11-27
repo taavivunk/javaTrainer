@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Leo ja Taavi JavaTrainer | Õpilase vaade</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Test environment</h1>
+<h1>JavaTrainer Test environment</h1>
+
+Sisesta oma nimi ja genereeri test:
+<br>
+<br>
+
 <input id="studentName" placeholder="Your name" type="text">
 <button id="startButton">Generate</button>
 <br><br><br>
@@ -23,24 +29,28 @@
         luuakse test, võttes andmebaasist ühest teemast üks juhuslik küsimus                OK!
         brauseris kuvatakse küsimus ja 4 vastusevarianti                                    OK!
         õpilane vastab radio-buttoniga ja esitab vastuse "SUBMIT ANSWER" nupuga             OK!
-        vastused kirjutatakse vastuste andmebaasi                                           NEEDS TESTING
-        too servicest controllerisse q_id ja 4 x a_id, tulemuste andmebaasi kirjutamiseks
-        autmaatkontroll kontrollib vastuse õigsust, kirjutab tulemuse result_list           NOT STARTED
+        vastused kirjutatakse vastuste andmebaasi                                           OK, but uncaught syntaxerror
+        too servicest controllerisse q_id ja 4 x a_id, tulemuste andmebaasi kirjutamiseks OK
+        autmaatkontroll kontrollib vastuse õigsust, kirjutab tulemuse result_list           OK
         andmebaasi ja kuvab brauseris õpilasele
 //-->
 <script>
     startButton.onclick = function () {
         let student_name = document.getElementById("studentName").value;
+
+
+
         fetch("http://localhost:8090/trainer/questionfromtopic/2")
             .then(function (result) {
                     return result.json();
                 }
             ).then(
             function (result) {
+
                 let question = result.question;
                 document.getElementById("output1").innerText = question;
                 let questionId = result.q_id;
-                questionTable.innerHTML = ""; //teeb tühjaks peale restarti
+               // questionTable.innerHTML = ""; //teeb lehe tühjaks peale submitti
                 for (let i = 0; i < result.answers.length; i++) {
                     let rowElement = document.createElement("tr");
                     let cellElement = document.createElement("td");
@@ -61,7 +71,9 @@
                             student_answer = trainer_answer;// salvestab õpilase vastuseks a_id
                             console.log("Received answer " + student_answer + " to question " + questionId);
                         }
+
                     }
+                    alert("Küsimused edastatud!")
                     fetch("http://localhost:8090/trainer/submitAnswer?qid=" + questionId +
                         "&aid=" + student_answer + "&sid=" + student_name,
                         {

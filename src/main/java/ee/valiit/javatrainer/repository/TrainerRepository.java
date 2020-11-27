@@ -96,7 +96,7 @@ public class TrainerRepository {
         List<String> result = jdbcTemplate.queryForList(sql, paramap, String.class);
         return result;
     }
-//TODO töö pooleli!
+
     public String submitAnswer(long q_id, long a_id, String student_id){
         String sql = "INSERT INTO answer_log (q_id, a_id, student_id, timestamp) VALUES (:var1, :var2, :var3, :var4)";
         Map<String, Object> paraMap = new HashMap<>();
@@ -107,6 +107,17 @@ public class TrainerRepository {
         jdbcTemplate.update(sql, paraMap);
 
         return "Küsimus ja vastus lisatud logisse (tabelisse answer_log)!";
+
+
+    }
+
+    public boolean trueOrFalse(long a_id) {
+        String sql = "SELECT is_correct from answers where a_id = :var1";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("var1", a_id);
+        boolean result = jdbcTemplate.queryForObject(sql, paramMap, Boolean.class);
+        return result;
+
 
 
     }
