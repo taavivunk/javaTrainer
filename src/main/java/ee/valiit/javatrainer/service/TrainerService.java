@@ -70,7 +70,7 @@ public class TrainerService {
         int qList = topicQuestions.size();
         double random = Math.random();
         int randomQnumber = (int) (random*qList); //random selectime neist ühe
-        String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitud teema listist
+        String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitupostgresd teema listist
         long questionId = trainerRepository.getQuestionId(randomQuestion); // küsime repost valitud küsimuse id
         List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(questionId); //küsime repost küsimused kood nende id-dega
         Map questionWithAnswers = new HashMap (); // teeme tagastamiseks uue mapi, mille sees on String + List
