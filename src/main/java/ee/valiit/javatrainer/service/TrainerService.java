@@ -85,16 +85,16 @@ public class TrainerService {
 //        return questionWithAnswers;
     }
 
-    public List createFullPackage() {
+    public List<AnswerSet> createFullPackage() {
 
-        List<List<AnswerSet>> fullPackage = new ArrayList<>();
+        List<AnswerSet> fullPackage = new ArrayList<>();
 
         for (int i = 1; i < 8; i++) {
 
             List<AnswerSet> temporary = new ArrayList<>();
             temporary = getQFromTopic(i);
 
-            fullPackage.add(temporary);
+            fullPackage.addAll(temporary);
         }
 
         return fullPackage;
