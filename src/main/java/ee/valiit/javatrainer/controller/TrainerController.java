@@ -48,13 +48,13 @@ public class TrainerController {
 
     @CrossOrigin
     @GetMapping("trainer/questionfromtopic/{nr}")       // see toob suvalise küsimuse koos vastutega etteantud teemast
-    public Map getQuestionFromTopic(@PathVariable("nr") Long t_id) {
+    public List getQuestionFromTopic(@PathVariable("nr") Long t_id) {
         return trainerService.getQFromTopic(t_id);
     }
 
     @CrossOrigin
     @GetMapping("trainer/testpackage") //toob kõikidest teemadest ühe küsimuse koos vastustega
-    public Map getFullPackage() {
+    public List getFullPackage() {
         return trainerService.createFullPackage();
     }
 

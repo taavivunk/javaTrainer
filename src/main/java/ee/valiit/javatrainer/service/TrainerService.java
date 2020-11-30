@@ -1,6 +1,7 @@
 package ee.valiit.javatrainer.service;
 
 
+import ee.valiit.javatrainer.AnswerSet;
 import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
 import ee.valiit.javatrainer.controller.AnswerRequest;
 import ee.valiit.javatrainer.controller.QuestionRequest;
@@ -10,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TrainerService {
@@ -65,34 +64,41 @@ public class TrainerService {
         return result;
     }
 
-    public Map getQFromTopic(long t_id) {
+    public List getQFromTopic(long t_id) {
         List<String> topicQuestions = trainerRepository.topicQuestions(t_id);//küsime siin repost kõik vastava teema küsimused
         int qList = topicQuestions.size();
         double random = Math.random();
-        int randomQnumber = (int) (random*qList); //random selectime neist ühe
+        int randomQnumber = (int) (random * qList); //random selectime neist ühe
         String randomQuestion = topicQuestions.get(randomQnumber); //saame suvalise küsimuse küsitupostgresd teema listist
         long questionId = trainerRepository.getQuestionId(randomQuestion); // küsime repost valitud küsimuse id
         List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(questionId); //küsime repost küsimused kood nende id-dega
-        Map questionWithAnswers = new HashMap (); // teeme tagastamiseks uue mapi, mille sees on String + List
-        questionWithAnswers.put("question",randomQuestion );
-        questionWithAnswers.put("answers", answerTableall); //vastused koos id-dega
-        questionWithAnswers.put("q_id", questionId); //lisame ka küsimuse id
-        return questionWithAnswers;
-    }
-    public Map createFullPackage() {
 
-        Map fullPackage = new HashMap();
+        List<AnswerSet> wholeSet = new ArrayList<>();
+        AnswerSet answerSet = new AnswerSet(answerTableall, randomQuestion, questionId);
+        wholeSet.add(answerSet);
+        return wholeSet;
+
+//        Map questionWithAnswers = new HashMap (); // teeme tagastamiseks uue mapi, mille sees on String + List
+//        questionWithAnswers.put("question",randomQuestion );
+//        questionWithAnswers.put("answers", answerTableall); //vastused koos id-dega
+//        questionWithAnswers.put("q_id", questionId); //lisame ka küsimuse id
+//        return questionWithAnswers;
+    }
+
+    public List createFullPackage() {
+
+        List<List<AnswerSet>> fullPackage = new ArrayList<>();
 
         for (int i = 1; i < 8; i++) {
-            Map temporary = new HashMap();
+
+            List<AnswerSet> temporary = new ArrayList<>();
             temporary = getQFromTopic(i);
-            String key = "key" + i;
-            fullPackage.put(key,temporary);
+
+            fullPackage.add(temporary);
         }
 
         return fullPackage;
     }
-
 
 
     public String answerCheck(long q_id, long a_id, String student_id) {
@@ -103,7 +109,7 @@ public class TrainerService {
 
     public String submitAnswer(long q_id, long a_id, String student_id) {
         String subAns = trainerRepository.submitAnswer(q_id, a_id, student_id);
-        String firstCheck = answerCheck(q_id,a_id,student_id);
+        String firstCheck = answerCheck(q_id, a_id, student_id);
 
 
         System.out.println(firstCheck);
