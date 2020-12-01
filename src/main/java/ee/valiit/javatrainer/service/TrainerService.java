@@ -2,16 +2,16 @@ package ee.valiit.javatrainer.service;
 
 
 import ee.valiit.javatrainer.AnswerSet;
-import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
-import ee.valiit.javatrainer.controller.AnswerRequest;
-import ee.valiit.javatrainer.controller.QuestionRequest;
+import ee.valiit.javatrainer.controller.*;
 import ee.valiit.javatrainer.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class TrainerService {
@@ -100,21 +100,44 @@ public class TrainerService {
         return fullPackage;
     }
 
-
-    public String answerCheck(long q_id, long a_id, String student_id) {
+    // TODO: kontrollida vastuseid
+    public boolean answerCheck(long a_id) {
         boolean trueOrFalse = trainerRepository.trueOrFalse(a_id); //see toob vastavad a_id boolean vastuse
-        String result = String.valueOf(trueOrFalse);
-        return result;
+//        String result = String.valueOf(trueOrFalse);
+        return trueOrFalse;
     }
 
-    public String submitAnswer(long q_id, long a_id, String student_id) {
-        String subAns = trainerRepository.submitAnswer(q_id, a_id, student_id);
-        String firstCheck = answerCheck(q_id, a_id, student_id);
+    public List submitAnswer(ResultBack result) {
+        String name = result.getStudentName();
+        List<ResultObjects> list = result.getResultObject();
+        List<AnswerRequest> returnList = new ArrayList<AnswerRequest>();
+        long questionId = 0;
+        long answerId = 0;
+        double resultCount = 0.0;
+        for (int i = 0; i < list.size(); i++) {
+            questionId = list.get(i).getQuestionId();
+            answerId = list.get(i).getAnswerId();
+            String subAns = trainerRepository.submitAnswer(questionId, answerId, name);
+            boolean isCorrect = answerCheck(answerId);
+            if(isCorrect){
+                resultCount = resultCount + 1;
+            }
+            AnswerRequest reply = new AnswerRequest();
+            reply.setAnswerId(answerId);
+            reply.setQuestionId(questionId);
+            reply.setCorrect(isCorrect);
+            returnList.add(reply);
+        }
+        double listSize = (double) list.size();
+        double finalResult = resultCount / listSize  * 100;
+        int testScore = (int) finalResult;
+        AnswerRequest addingScore = new AnswerRequest();
+        addingScore.setTestScore(testScore);
+        returnList.add(addingScore);
+        // frondis näidata testi tulemust (Küsimus: x, vastasid: y, see oli õige/vale, tulemus: pass/fail)
+        return returnList;
+        //kirjutada skoor result_list
 
-
-        System.out.println(firstCheck);
-        return firstCheck;
     }
-
 
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 public class ResultBack {
 
-    String studentName;
-    List<ResultObjects> resultObject;
+    private String studentName;
+    private List<ResultObjects> resultObject;
 
     public String getStudentName() {
         return studentName;

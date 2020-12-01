@@ -30,23 +30,19 @@ Sisesta oma nimi ja genereeri test:
         brauseris kuvatakse küsimus ja 4 vastusevarianti                                    OK!
         õpilane vastab radio-buttoniga ja esitab vastuse "SUBMIT ANSWER" nupuga             OK!
         vastused kirjutatakse vastuste andmebaasi                                           OK, but uncaught syntaxerror
-        too servicest controllerisse q_id ja 4 x a_id, tulemuste andmebaasi kirjutamiseks OK
+        too servicest controllerisse q_id ja 4 x a_id, tulemuste andmebaasi kirjutamiseks   OK
         autmaatkontroll kontrollib vastuse õigsust, kirjutab tulemuse result_list           OK
         andmebaasi ja kuvab brauseris õpilasele
 //-->
 <script>
     startButton.onclick = function () {
         let student_name = document.getElementById("studentName").value;
-
-
-
         fetch("http://localhost:8090/trainer/questionfromtopic/2")
             .then(function (result) {
                     return result.json();
                 }
             ).then(
             function (result) {
-
                 let question = result.question;
                 document.getElementById("output1").innerText = question;
                 let questionId = result.q_id;
@@ -71,7 +67,6 @@ Sisesta oma nimi ja genereeri test:
                             student_answer = trainer_answer;// salvestab õpilase vastuseks a_id
                             console.log("Received answer " + student_answer + " to question " + questionId);
                         }
-
                     }
                     alert("Küsimused edastatud!")
                     fetch("http://localhost:8090/trainer/submitAnswer?qid=" + questionId +

@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class TrainerController {
-    @Autowired
+        @Autowired
     TrainerService trainerService;
 
     @CrossOrigin
@@ -63,11 +62,8 @@ public class TrainerController {
 
     @CrossOrigin
     @PostMapping("trainer/submitAnswer") //toob frondist vastatud küsimuse tagasi ja saadab answer_log'i
-    public String submitAnswer(@RequestParam("qid") long q_id,
-                               @RequestParam("aid") long a_id,
-                               @RequestParam("sid") String student_id) {
-
-        return trainerService.submitAnswer(q_id, a_id, student_id);
+    public List submitAnswer(@RequestBody ResultBack result) {
+        return trainerService.submitAnswer(result);
 
 
 

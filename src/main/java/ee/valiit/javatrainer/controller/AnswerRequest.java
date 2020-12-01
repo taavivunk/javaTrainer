@@ -5,6 +5,15 @@ public class AnswerRequest {
     private boolean correct;
     private Long questionId;
     private Long answerId;
+    private int testScore;
+
+    public int getTestScore() {
+        return testScore;
+    }
+
+    public void setTestScore(int testScore) {
+        this.testScore = testScore;
+    }
 
     public Long getQuestionId() {
         return questionId;

@@ -2,7 +2,6 @@ package ee.valiit.javatrainer.repository;
 
 import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
 import ee.valiit.javatrainer.controller.AnswerRequest;
-import ee.valiit.javatrainer.controller.QuestionRequest;
 import ee.valiit.javatrainer.service.AnswerAndIdRowMapper;
 import ee.valiit.javatrainer.service.AnswerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;

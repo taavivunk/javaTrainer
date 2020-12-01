@@ -1,12 +1,10 @@
 package ee.valiit.javatrainer;
 
-import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
-
 import java.util.List;
 
 public class AnswerSet {
 
-    private List<AnswerAndIdRequest> answers;
+    private List answers;
     private String question;
     private Long q_id;
 
