@@ -50,7 +50,7 @@ Sisesta oma nimi ja genereeri test:
                 let question = result.question;
                 document.getElementById("output1").innerText = question;
                 let questionId = result.q_id;
-               // questionTable.innerHTML = ""; //teeb lehe tühjaks peale submitti
+                questionTable.innerHTML = ""; //teeb lehe tühjaks peale submitti
                 for (let i = 0; i < result.answers.length; i++) {
                     let rowElement = document.createElement("tr");
                     let cellElement = document.createElement("td");
