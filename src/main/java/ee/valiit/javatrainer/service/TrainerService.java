@@ -133,9 +133,9 @@ public class TrainerService {
         int testScore = (int) finalResult;
         AnswerRequest addingScore = new AnswerRequest();
         addingScore.setTestScore(testScore);
-        // frondis näidata testi tulemust (Küsimus: x, vastasid: y, see oli õige/vale, tulemus: pass/fail)
+        trainerRepository.submitFinalresult(testScore, name); //kirjutab tulemuse result_listi
         return new SubmitAnswerResponse(returnList, addingScore);
-        //kirjutada skoor result_list
+
 
     }
 

@@ -121,4 +121,13 @@ public class TrainerRepository {
     }
 
 
- }
+    public void submitFinalresult(int testScore, String name) {
+        String sql = "INSERT INTO result_list (result, student_id, timestamp) VALUES (:var1, :var2, :var3)";
+        Map<String, Object> paraMap = new HashMap<>();
+        paraMap.put("var1", testScore);
+        paraMap.put("var2", name);
+        paraMap.put("var3", new Timestamp(System.currentTimeMillis()));
+        jdbcTemplate.update(sql, paraMap);
+
+    }
+}
