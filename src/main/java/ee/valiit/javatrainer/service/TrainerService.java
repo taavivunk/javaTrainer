@@ -59,7 +59,7 @@ public class TrainerService {
     }
 
 
-    public List getAnswersForQuestion(Long q_id) {
+    public List<String> getAnswersForQuestion(Long q_id) {
         List<String> result = trainerRepository.uusrepofunktsioon(q_id);
         return result;
     }
@@ -107,7 +107,7 @@ public class TrainerService {
         return trueOrFalse;
     }
 
-    public List submitAnswer(ResultBack result) {
+    public SubmitAnswerResponse submitAnswer(ResultBack result) {
         String name = result.getStudentName();
         List<ResultObjects> list = result.getResultObject();
         List<AnswerRequest> returnList = new ArrayList<AnswerRequest>();
@@ -133,9 +133,8 @@ public class TrainerService {
         int testScore = (int) finalResult;
         AnswerRequest addingScore = new AnswerRequest();
         addingScore.setTestScore(testScore);
-        returnList.add(addingScore);
         // frondis näidata testi tulemust (Küsimus: x, vastasid: y, see oli õige/vale, tulemus: pass/fail)
-        return returnList;
+        return new SubmitAnswerResponse(returnList, addingScore);
         //kirjutada skoor result_list
 
     }

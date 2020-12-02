@@ -1,5 +1,7 @@
 package ee.valiit.javatrainer.controller;
 
+import ee.valiit.javatrainer.AnswerSet;
+import ee.valiit.javatrainer.service.SubmitAnswerResponse;
 import ee.valiit.javatrainer.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,13 +49,13 @@ public class TrainerController {
 
     @CrossOrigin
     @GetMapping("trainer/questionfromtopic/{nr}")       // see toob suvalise küsimuse koos vastutega etteantud teemast
-    public List getQuestionFromTopic(@PathVariable("nr") Long t_id) {
+    public List<String> getQuestionFromTopic(@PathVariable("nr") Long t_id) {
         return trainerService.getQFromTopic(t_id);
     }
 
     @CrossOrigin
     @GetMapping("trainer/testpackage") //toob kõikidest teemadest ühe küsimuse koos vastustega
-    public List getFullPackage() {
+    public List<AnswerSet> getFullPackage() {
         return trainerService.createFullPackage();
     }
 
@@ -62,7 +64,7 @@ public class TrainerController {
 
     @CrossOrigin
     @PostMapping("trainer/submitAnswer") //toob frondist vastatud küsimuse tagasi ja saadab answer_log'i
-    public List submitAnswer(@RequestBody ResultBack result) {
+    public SubmitAnswerResponse submitAnswer(@RequestBody ResultBack result) {
         return trainerService.submitAnswer(result);
 
 
