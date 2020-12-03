@@ -48,7 +48,7 @@ public class TrainerController {
         return trainerService.getAnswers();
     }
 
-    @CrossOrigin
+    @CrossOrigin                        //toob result_listi
     @GetMapping("trainer/getresults")
     public List getResults() {
         return trainerService.getResults();

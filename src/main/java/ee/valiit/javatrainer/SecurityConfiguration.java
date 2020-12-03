@@ -17,12 +17,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/**").permitAll() // pärast panna tagasi authenticated() !!
-                .antMatchers("/public/**").permitAll()
-                .anyRequest().permitAll()                   // kui turva töötab, võta see rida maha!!
+                .antMatchers("/**").permitAll() // pärast panna tagasi authenticated() !!
                 .and()
                 .addFilterBefore(new JwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
+        http.csrf().disable();
     }
 
 }
