@@ -6,6 +6,7 @@ import ee.valiit.javatrainer.ResultList;
 import ee.valiit.javatrainer.controller.*;
 import ee.valiit.javatrainer.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,13 @@ public class TrainerService {
 
     @Autowired
     private TrainerRepository trainerRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public String createNewUser(String name, String password) {
-        String result = trainerRepository.createNewUser(name, password);
+        String hash = passwordEncoder.encode(password);
+        String result = trainerRepository.createNewUser(name, hash);
+
     return result;
     }
 
