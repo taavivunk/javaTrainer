@@ -36,6 +36,13 @@ public class TrainerController {
     }
 
     @CrossOrigin
+    @GetMapping("trainer/getresults")
+    public List getResults() {
+        return trainerService.getResults();
+
+    }
+
+    @CrossOrigin
     @GetMapping("trainer/AnswersAndId/{id}")       //  toob vastused koos id-ga (rowmapper)
     public List getAnswersAndId(@PathVariable("id") Long q_id) {
         return trainerService.getAnswersAndId(q_id);

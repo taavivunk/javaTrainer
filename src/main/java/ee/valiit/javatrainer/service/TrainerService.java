@@ -2,13 +2,13 @@ package ee.valiit.javatrainer.service;
 
 
 import ee.valiit.javatrainer.AnswerSet;
+import ee.valiit.javatrainer.ResultList;
 import ee.valiit.javatrainer.controller.*;
 import ee.valiit.javatrainer.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +51,13 @@ public class TrainerService {
         List<AnswerRequest> result = trainerRepository.getAnswers();
         return result;
     }
+    public List getResults() {
+        List<ResultList> result = trainerRepository.getResults();
+        return result;
 
+
+
+    }
 
     public List getAnswersAndId(Long q_id) {  //toob answerite tabelist vastused+id vastavalt ette antud küsimuse id-le
         List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(q_id);

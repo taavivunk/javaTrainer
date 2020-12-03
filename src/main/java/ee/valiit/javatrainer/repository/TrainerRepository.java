@@ -1,5 +1,7 @@
 package ee.valiit.javatrainer.repository;
 
+import ee.valiit.javatrainer.ResultList;
+import ee.valiit.javatrainer.ResultRowMapper;
 import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
 import ee.valiit.javatrainer.controller.AnswerRequest;
 import ee.valiit.javatrainer.service.AnswerAndIdRowMapper;
@@ -65,6 +67,13 @@ public class TrainerRepository {
         String getAnswers = "SELECT * FROM answers";
         Map paraMap = new HashMap();
         List<AnswerRequest> result = jdbcTemplate.query(getAnswers, paraMap, new AnswerRowMapper());
+        return result;
+    }
+
+    public List<ResultList> getResults() {
+        String getResults = "SELECT * FROM result_list";
+        Map paraMap = new HashMap();
+        List<ResultList> result = jdbcTemplate.query(getResults, paraMap, new ResultRowMapper());
         return result;
     }
 
