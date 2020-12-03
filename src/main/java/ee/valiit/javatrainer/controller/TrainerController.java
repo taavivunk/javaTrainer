@@ -10,15 +10,29 @@ import java.util.List;
 
 @RestController
 public class TrainerController {
-        @Autowired
+
+    @Autowired
     TrainerService trainerService;
+
+    @CrossOrigin
+    @PostMapping("trainer/newUser")                         // eeldame, et töötab, hetkel annab403 forbidden
+    public String createUser(@RequestParam("nimi") String name,
+                             @RequestParam("parool") String password) {
+        return trainerService.createNewUser(name, password);
+    }
+
+    @CrossOrigin
+    @PostMapping("trainer/login")
+    public String login(@RequestParam("nimi") String name,
+                        @RequestParam("parool") String password) {
+        return trainerService.login(name, password);
+    }
+
 
     @CrossOrigin
     @PostMapping("trainer/newQuestionSet")
     public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
-
         return trainerService.newQuestionSet(questionRequest);
-
     }
 
     @CrossOrigin
@@ -26,7 +40,6 @@ public class TrainerController {
     // tagastada küsimuse (objekt) ja vastuse variandid (list)
     public String getNewQuestion(@PathVariable("id") Long q_id) {
         return trainerService.getNewQuestion(q_id);
-
     }
 
     @CrossOrigin
@@ -39,7 +52,6 @@ public class TrainerController {
     @GetMapping("trainer/getresults")
     public List getResults() {
         return trainerService.getResults();
-
     }
 
     @CrossOrigin
@@ -66,16 +78,10 @@ public class TrainerController {
         return trainerService.createFullPackage();
     }
 
-
-
-
     @CrossOrigin
     @PostMapping("trainer/submitAnswer") //toob frondist vastatud küsimuse tagasi ja saadab answer_log'i
     public SubmitAnswerResponse submitAnswer(@RequestBody ResultBack result) {
         return trainerService.submitAnswer(result);
-
-
-
     }
 
 }

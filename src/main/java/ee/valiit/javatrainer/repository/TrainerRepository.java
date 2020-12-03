@@ -23,6 +23,19 @@ public class TrainerRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
+    public String createNewUser(String name, String password) {
+        String sql = "INSERT INTO users (user_class, user_name, password) VALUES (:var1, :var2, :var3)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("var1", "user");
+        paramMap.put("var2", name);
+        paramMap.put("var3", password);
+        jdbcTemplate.update(sql, paramMap);
+        return "Kasutaja lisamine õnnestus";
+    }
+
+    public String loginUser(String name, String password) {
+        return "";
+    }
 
     public Integer addNewQuestion(Long topicId, String question) {
         // adding new question to questions db
@@ -54,6 +67,7 @@ public class TrainerRepository {
         String question = jdbcTemplate.queryForObject(sql, paramMap, String.class);
         return question;
     }
+
     public long getQuestionId(String question) {
         String sql = "SELECT q_id from questions where question = :var1";
         Map<String, Object> paramMap = new HashMap<>();
@@ -63,7 +77,6 @@ public class TrainerRepository {
     }
 
     public List<AnswerRequest> getAnswers() {
-
         String getAnswers = "SELECT * FROM answers";
         Map paraMap = new HashMap();
         List<AnswerRequest> result = jdbcTemplate.query(getAnswers, paraMap, new AnswerRowMapper());
@@ -78,7 +91,6 @@ public class TrainerRepository {
     }
 
     public List<AnswerAndIdRequest> getAnswersAndIds(long qId) {
-
         String getAnswersAndIds = "SELECT * FROM answers where q_id =:var";
         Map paraMap = new HashMap();
         paraMap.put("var", qId);
@@ -86,9 +98,7 @@ public class TrainerRepository {
         return result;
     }
 
-
     public List<String> uusrepofunktsioon(long qId) {
-
         String getAnswersToQuestion = "SELECT answer FROM answers where q_id = :var";
         Map paraMap = new HashMap();
         paraMap.put("var", qId);
@@ -112,10 +122,7 @@ public class TrainerRepository {
         paraMap.put("var3", student_id);
         paraMap.put("var4", new Timestamp(System.currentTimeMillis()));
         jdbcTemplate.update(sql, paraMap);
-
         return "Küsimus ja vastus lisatud logisse (tabelisse answer_log)!";
-
-
     }
 
     public boolean trueOrFalse(long a_id) {
@@ -124,11 +131,7 @@ public class TrainerRepository {
         paramMap.put("var1", a_id);
         boolean result = jdbcTemplate.queryForObject(sql, paramMap, Boolean.class);
         return result;
-
-
-
     }
-
 
     public void submitFinalresult(int testScore, String name) {
         String sql = "INSERT INTO result_list (result, student_id, timestamp) VALUES (:var1, :var2, :var3)";
@@ -137,6 +140,5 @@ public class TrainerRepository {
         paraMap.put("var2", name);
         paraMap.put("var3", new Timestamp(System.currentTimeMillis()));
         jdbcTemplate.update(sql, paraMap);
-
     }
 }

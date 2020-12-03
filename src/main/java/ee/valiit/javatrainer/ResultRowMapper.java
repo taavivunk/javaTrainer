@@ -1,8 +1,6 @@
 package ee.valiit.javatrainer;
 
 
-
-
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
