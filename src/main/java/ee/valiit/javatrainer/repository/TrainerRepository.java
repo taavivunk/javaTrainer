@@ -33,9 +33,6 @@ public class TrainerRepository {
         return "Kasutaja lisamine õnnestus";
     }
 
-    public String loginUser(String name, String password) {
-        return "";
-    }
 
     public Integer addNewQuestion(Long topicId, String question) {
         // adding new question to questions db
@@ -140,5 +137,13 @@ public class TrainerRepository {
         paraMap.put("var2", name);
         paraMap.put("var3", new Timestamp(System.currentTimeMillis()));
         jdbcTemplate.update(sql, paraMap);
+    }
+
+    public String loginRequest(String userName) {
+        String sql = "SELECT password FROM users WHERE user_name=:var1";
+        Map<String, String> paraMap = new HashMap<>();
+        paraMap.put("var1", userName);
+        String result = jdbcTemplate.queryForObject(sql, paraMap, String.class);
+        return result;
     }
 }

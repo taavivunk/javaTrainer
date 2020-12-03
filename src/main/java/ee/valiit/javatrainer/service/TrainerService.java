@@ -5,10 +5,15 @@ import ee.valiit.javatrainer.AnswerSet;
 import ee.valiit.javatrainer.ResultList;
 import ee.valiit.javatrainer.controller.*;
 import ee.valiit.javatrainer.repository.TrainerRepository;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,13 +29,31 @@ public class TrainerService {
         String hash = passwordEncoder.encode(password);
         String result = trainerRepository.createNewUser(name, hash);
 
-    return result;
-    }
-
-    public String login(String name, String password) {
-        String result = trainerRepository.loginUser(name, password);
         return result;
     }
+
+    public String login(String userName, String rawPassWord) {
+        String encodedPassword = trainerRepository.loginRequest(userName); //DB salasõna hash tagasi
+        if (passwordEncoder.matches(rawPassWord, encodedPassword)
+        ) {
+            JwtBuilder builder = Jwts.builder()
+                    .setExpiration(new Date()) // küsi selle kohta SIIMU KÄEST 04.12 klassis!!!
+                    .setIssuedAt(new Date())
+                    .setIssuer("issuer")
+                    .signWith(SignatureAlgorithm.HS256,
+                            "secret")
+
+                    .claim("userName", userName);
+            String jwt = builder.compact();
+
+            return jwt;
+        }
+        else {
+            return "Salasõna on vale!";
+        }
+
+
+}
 
 
     public String newQuestionSet(QuestionRequest questionRequest) {
@@ -113,7 +136,7 @@ public class TrainerService {
             answerId = list.get(i).getAnswerId();
             String subAns = trainerRepository.submitAnswer(questionId, answerId, name);
             boolean isCorrect = answerCheck(answerId);
-            if(isCorrect){
+            if (isCorrect) {
                 resultCount = resultCount + 1;
             }
             AnswerRequest reply = new AnswerRequest();
@@ -123,7 +146,7 @@ public class TrainerService {
             returnList.add(reply);
         }
         double listSize = (double) list.size();
-        double finalResult = resultCount / listSize  * 100;
+        double finalResult = resultCount / listSize * 100;
         int testScore = (int) finalResult;
         AnswerRequest addingScore = new AnswerRequest();
         addingScore.setTestScore(testScore);

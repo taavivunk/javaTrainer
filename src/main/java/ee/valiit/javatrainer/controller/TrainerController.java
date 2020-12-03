@@ -22,7 +22,7 @@ public class TrainerController {
     }
 
     @CrossOrigin
-    @PostMapping("trainer/login")
+    @GetMapping("trainer/login")
     public String login(@RequestParam("nimi") String name,
                         @RequestParam("parool") String password) {
         return trainerService.login(name, password);
