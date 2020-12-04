@@ -23,17 +23,17 @@ public class TrainerRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    public String createNewUser(String name, String user_class, String password) {
+    public String createNewUser(String name, String password) {
         String sql = "INSERT INTO users (user_class, user_name, password) VALUES (:var1, :var2, :var3)";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("var1", user_class);
+        paramMap.put("var1", "user");
         paramMap.put("var2", name);
         paramMap.put("var3", password);
         jdbcTemplate.update(sql, paramMap);
         return "Kasutaja lisamine õnnestus";
     }
 
-    public String loginUser(String name, String password) {         // tegemata!
+    public String loginUser(String name, String password) {
         return "";
     }
 
@@ -98,7 +98,7 @@ public class TrainerRepository {
         return result;
     }
 
-    public List<String> getQuestionAnswers(long qId) {
+    public List<String> uusrepofunktsioon(long qId) {
         String getAnswersToQuestion = "SELECT answer FROM answers where q_id = :var";
         Map paraMap = new HashMap();
         paraMap.put("var", qId);
