@@ -22,7 +22,7 @@ public class TrainerController {
     }
 
     @CrossOrigin            // saadab kasutaja nime ja salasõna kontrolli
-    @GetMapping("trainer/login")
+    @PostMapping("trainer/login")
     public String login(@RequestBody User user) {
         return trainerService.login(user);
     }

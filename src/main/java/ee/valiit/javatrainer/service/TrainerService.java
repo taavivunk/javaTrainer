@@ -30,9 +30,10 @@ public class TrainerService {
         String encodedPassword = trainerRepository.loginRequest(user.getUserName()); //DB salasõna hash tagasi
         if (passwordEncoder.matches(user.getUserPassword(), encodedPassword)
         ) {
+            Date now = new Date();
             JwtBuilder builder = Jwts.builder()
-                    .setExpiration(new Date()) // küsi selle kohta SIIMU KÄEST 04.12 klassis!!!
-                    .setIssuedAt(new Date())
+                    .setExpiration(new Date(now.getTime() + 1000*60*60*24)) // küsi selle kohta SIIMU KÄEST 04.12 klassis!!!
+                    .setIssuedAt(now)
                     .setIssuer("issuer")
                     .signWith(SignatureAlgorithm.HS256,
                             "secret")
@@ -43,7 +44,7 @@ public class TrainerService {
             return jwt;
         }
         else {
-            return "Salasõna on vale!";
+            throw new IllegalArgumentException();
         }
 }
 
