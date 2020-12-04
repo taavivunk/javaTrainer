@@ -26,9 +26,9 @@ public class TrainerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String login(String userName, String rawPassWord) {
-        String encodedPassword = trainerRepository.loginRequest(userName); //DB salasõna hash tagasi
-        if (passwordEncoder.matches(rawPassWord, encodedPassword)
+    public String login(User user) {
+        String encodedPassword = trainerRepository.loginRequest(user.getUserName()); //DB salasõna hash tagasi
+        if (passwordEncoder.matches(user.getUserPassword(), encodedPassword)
         ) {
             JwtBuilder builder = Jwts.builder()
                     .setExpiration(new Date()) // küsi selle kohta SIIMU KÄEST 04.12 klassis!!!
@@ -37,7 +37,7 @@ public class TrainerService {
                     .signWith(SignatureAlgorithm.HS256,
                             "secret")
 
-                    .claim("userName", userName);
+                    .claim("userName", user.getUserName());
             String jwt = builder.compact();
 
             return jwt;
