@@ -1,6 +1,7 @@
 package ee.valiit.javatrainer.controller;
 
 import ee.valiit.javatrainer.AnswerSet;
+import ee.valiit.javatrainer.User;
 import ee.valiit.javatrainer.service.SubmitAnswerResponse;
 import ee.valiit.javatrainer.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,72 +15,69 @@ public class TrainerController {
     @Autowired
     TrainerService trainerService;
 
-    @CrossOrigin
-    @PostMapping("trainer/newUser")                         // eeldame, et töötab, hetkel annab403 forbidden
-    public String createUser(@RequestParam("nimi") String name,
-                             @RequestParam("parool") String password) {
-        return trainerService.createNewUser(name, password);
+    @CrossOrigin            // saadab uue kasutaja andmed users andmebaasi
+    @PostMapping("trainer/newUser")
+    public String createUser(@RequestBody User user) {
+        return trainerService.createNewUser(user);
     }
 
-    @CrossOrigin
-    @PostMapping("trainer/login")
+    @CrossOrigin            // saadab kasutaja nime ja salasõna kontrolli
+    @GetMapping("trainer/login")
     public String login(@RequestParam("nimi") String name,
                         @RequestParam("parool") String password) {
         return trainerService.login(name, password);
     }
 
-
-    @CrossOrigin
+    @CrossOrigin            // saadab küsimuse ja vastused questions ja answers andmebaasi
     @PostMapping("trainer/newQuestionSet")
     public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
         return trainerService.newQuestionSet(questionRequest);
     }
 
-    @CrossOrigin
+    @CrossOrigin            // toob küsimuse (objekt) ja vastuse variandid (list)
     @GetMapping("trainer/question/{id}")
-    // tagastada küsimuse (objekt) ja vastuse variandid (list)
     public String getNewQuestion(@PathVariable("id") Long q_id) {
         return trainerService.getNewQuestion(q_id);
     }
 
-    @CrossOrigin
-    @GetMapping("trainer/allAnswers")       //  toob kogu vastuste andmebaasi (rowmapper)
+    @CrossOrigin            // toob kogu vastuste andmebaasi (rowmapper)
+    @GetMapping("trainer/allAnswers")
     public List getAnswers() {
         return trainerService.getAnswers();
     }
 
-    @CrossOrigin                        //toob result_listi
+    @CrossOrigin            // toob result_listi
     @GetMapping("trainer/getresults")
     public List getResults() {
         return trainerService.getResults();
     }
 
-    @CrossOrigin
-    @GetMapping("trainer/AnswersAndId/{id}")       //  toob vastused koos id-ga (rowmapper)
+    @CrossOrigin            // toob vastused koos id-ga (rowmapper)
+    @GetMapping("trainer/AnswersAndId/{id}")
     public List getAnswersAndId(@PathVariable("id") Long q_id) {
         return trainerService.getAnswersAndId(q_id);
     }
 
-    @CrossOrigin
-    @GetMapping("trainer/answers/{id}")       //  toob ühe küsimuse vastusevariandid
+    @CrossOrigin            // toob ühe küsimuse vastusevariandid
+    @GetMapping("trainer/answers/{id}")
     public List getAnswersForQuestion(@PathVariable("id") Long q_id) {
         return trainerService.getAnswersForQuestion(q_id);
     }
 
-    @CrossOrigin
-    @GetMapping("trainer/questionfromtopic/{nr}")       // see toob suvalise küsimuse koos vastutega etteantud teemast
+    @CrossOrigin            // toob suvalise küsimuse koos vastutega etteantud teemast
+    @GetMapping("trainer/questionfromtopic/{nr}")
     public List<String> getQuestionFromTopic(@PathVariable("nr") Long t_id) {
         return trainerService.getQFromTopic(t_id);
     }
 
-    @CrossOrigin
-    @GetMapping("trainer/testpackage") //toob kõikidest teemadest ühe küsimuse koos vastustega
+    @CrossOrigin            // toob kõikidest teemadest ühe küsimuse koos vastustega
+    @GetMapping("trainer/testpackage")
     public List<AnswerSet> getFullPackage() {
         return trainerService.createFullPackage();
     }
 
-    @CrossOrigin
-    @PostMapping("trainer/submitAnswer") //toob frondist vastatud küsimuse tagasi ja saadab answer_log'i
+    @CrossOrigin            // saadab vastuse answer_log andmebaasi
+    @PostMapping("trainer/submitAnswer")
     public SubmitAnswerResponse submitAnswer(@RequestBody ResultBack result) {
         return trainerService.submitAnswer(result);
     }

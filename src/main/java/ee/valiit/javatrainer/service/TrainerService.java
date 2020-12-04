@@ -1,8 +1,8 @@
 package ee.valiit.javatrainer.service;
 
-
 import ee.valiit.javatrainer.AnswerSet;
 import ee.valiit.javatrainer.ResultList;
+import ee.valiit.javatrainer.User;
 import ee.valiit.javatrainer.controller.*;
 import ee.valiit.javatrainer.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class TrainerService {
@@ -20,10 +19,9 @@ public class TrainerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String createNewUser(String name, String password) {
-        String hash = passwordEncoder.encode(password);
-        String result = trainerRepository.createNewUser(name, hash);
-
+    public String createNewUser(User user) {
+        String hash = passwordEncoder.encode(user.getUserPassword());
+        String result = trainerRepository.createNewUser(user.getUserName(), user.getUserClass(), hash);
     return result;
     }
 
@@ -31,7 +29,6 @@ public class TrainerService {
         String result = trainerRepository.loginUser(name, password);
         return result;
     }
-
 
     public String newQuestionSet(QuestionRequest questionRequest) {
         // insert question
@@ -44,7 +41,7 @@ public class TrainerService {
             Boolean isCorrect1 = answer.isCorrect();
             trainerRepository.addNewAnswer(questionId, answer1, isCorrect1);
         }
-        return "küsimus lisatud";
+        return "Küsimus lisatud";
     }
 
     public String getNewQuestion(Long q_id) {
@@ -68,7 +65,7 @@ public class TrainerService {
     }
 
     public List<String> getAnswersForQuestion(Long q_id) {
-        List<String> result = trainerRepository.uusrepofunktsioon(q_id);
+        List<String> result = trainerRepository.getQuestionAnswers(q_id);
         return result;
     }
 
