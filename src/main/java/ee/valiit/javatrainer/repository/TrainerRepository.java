@@ -23,10 +23,10 @@ public class TrainerRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    public String createNewUser(String name, String password) {
+    public String createNewUser(String name, String userClass, String password) {
         String sql = "INSERT INTO users (user_class, user_name, password) VALUES (:var1, :var2, :var3)";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("var1", "user");
+        paramMap.put("var1", userClass);
         paramMap.put("var2", name);
         paramMap.put("var3", password);
         jdbcTemplate.update(sql, paramMap);
@@ -141,4 +141,13 @@ public class TrainerRepository {
         paraMap.put("var3", new Timestamp(System.currentTimeMillis()));
         jdbcTemplate.update(sql, paraMap);
     }
+
+    public String loginRequest(String userName) {
+        String sql = "SELECT password FROM users WHERE user_name=:var1";
+        Map<String, String> paraMap = new HashMap<>();
+        paraMap.put("var1", userName);
+        String result = jdbcTemplate.queryForObject(sql, paraMap, String.class);
+        return result;
+    }
+
 }

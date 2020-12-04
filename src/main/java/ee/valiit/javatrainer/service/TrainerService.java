@@ -3,6 +3,7 @@ package ee.valiit.javatrainer.service;
 
 import ee.valiit.javatrainer.AnswerSet;
 import ee.valiit.javatrainer.ResultList;
+import ee.valiit.javatrainer.User;
 import ee.valiit.javatrainer.controller.*;
 import ee.valiit.javatrainer.repository.TrainerRepository;
 import io.jsonwebtoken.JwtBuilder;
@@ -25,13 +26,6 @@ public class TrainerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String createNewUser(String name, String password) {
-        String hash = passwordEncoder.encode(password);
-        String result = trainerRepository.createNewUser(name, hash);
-
-        return result;
-    }
-
     public String login(String userName, String rawPassWord) {
         String encodedPassword = trainerRepository.loginRequest(userName); //DB salasõna hash tagasi
         if (passwordEncoder.matches(rawPassWord, encodedPassword)
@@ -51,10 +45,7 @@ public class TrainerService {
         else {
             return "Salasõna on vale!";
         }
-
-
 }
-
 
     public String newQuestionSet(QuestionRequest questionRequest) {
         // insert question
@@ -154,4 +145,10 @@ public class TrainerService {
         return new SubmitAnswerResponse(returnList, addingScore);
     }
 
+    public String createNewUser(User user) {
+        String hash = passwordEncoder.encode(user.getUserPassword());
+        String result = trainerRepository.createNewUser(user.getUserName(), user.getUserClass(), hash);
+
+        return result;
+    }
 }
