@@ -89,6 +89,16 @@ public class TrainerRepository {
         List<ResultList> result = jdbcTemplate.query(getResults, paraMap, new ResultRowMapper());
         return result;
     }
+        // ORDER BY column DESC/ASC;
+    public List<ResultList> getResultsByParams(String column, String direction) {
+        String getResults = "SELECT * FROM result_list" + " ORDER BY " + column + " " + direction + ";";
+
+        Map paraMap = new HashMap();
+        List<ResultList> result = jdbcTemplate.query(getResults, paraMap, new ResultRowMapper());
+        return result;
+    }
+
+
 
     public List<AnswerAndIdRequest> getAnswersAndIds(long qId) {
         String getAnswersAndIds = "SELECT * FROM answers where q_id =:var";

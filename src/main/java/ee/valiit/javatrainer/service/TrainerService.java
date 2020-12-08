@@ -32,12 +32,10 @@ public class TrainerService {
         ) {
             Date now = new Date();
             JwtBuilder builder = Jwts.builder()
-                    .setExpiration(new Date(now.getTime() + 1000*60*60*24)) // küsi selle kohta SIIMU KÄEST 04.12 klassis!!!
+                    .setExpiration(new Date(now.getTime() + 1000*60*60*24)) // token kehtib 24h
                     .setIssuedAt(now)
                     .setIssuer("issuer")
-                    .signWith(SignatureAlgorithm.HS256,
-                            "secret")
-
+                    .signWith(SignatureAlgorithm.HS256, "secret")
                     .claim("userName", user.getUserName());
             String jwt = builder.compact();
 
@@ -72,9 +70,14 @@ public class TrainerService {
         return result;
     }
 
-    public List getResults() {
-        List<ResultList> result = trainerRepository.getResults();
-        return result;
+    public List getResults(String column, String direction) {
+        if(column == null || column.isBlank() || direction == null || direction.isBlank()) {
+            List<ResultList> result = trainerRepository.getResults();
+            return result;
+        } else {
+            List<ResultList> result = trainerRepository.getResultsByParams(column, direction);
+            return result;
+        }
     }
 
     public List getAnswersAndId(Long q_id) {  //toob answerite tabelist vastused+id vastavalt ette antud küsimuse id-le

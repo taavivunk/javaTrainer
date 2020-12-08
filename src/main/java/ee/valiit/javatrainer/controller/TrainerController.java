@@ -30,8 +30,7 @@ public class TrainerController {
     @CrossOrigin            // saadab küsimuse ja vastused questions ja answers andmebaasi
     @PostMapping("trainer/newQuestionSet")
     public String pushQuestion(@RequestBody QuestionRequest questionRequest) {
-        return trainerService.newQuestionSet(questionRequest);
-    }
+        return trainerService.newQuestionSet(questionRequest); }
 
     @CrossOrigin            // toob küsimuse (objekt) ja vastuse variandid (list)
     @GetMapping("trainer/question/{id}")
@@ -45,11 +44,11 @@ public class TrainerController {
         return trainerService.getAnswers();
     }
 
-    @CrossOrigin            // toob result_listi
+    @CrossOrigin            // toob result_listi, lisame ka parameetrid sorteeritud tulemuste saamiseks
     @GetMapping("trainer/getresults")
-    public List getResults() {
-        return trainerService.getResults();
-    }
+    public List getResults(@RequestParam(value = "column", required = false) String column,
+                           @RequestParam(value = "direction", required = false) String direction) {
+        return trainerService.getResults(column, direction); }
 
     @CrossOrigin            // toob vastused koos id-ga (rowmapper)
     @GetMapping("trainer/AnswersAndId/{id}")
@@ -60,14 +59,12 @@ public class TrainerController {
     @CrossOrigin            // toob ühe küsimuse vastusevariandid
     @GetMapping("trainer/answers/{id}")
     public List getAnswersForQuestion(@PathVariable("id") Long q_id) {
-        return trainerService.getAnswersForQuestion(q_id);
-    }
+        return trainerService.getAnswersForQuestion(q_id); }
 
     @CrossOrigin            // toob suvalise küsimuse koos vastutega etteantud teemast
     @GetMapping("trainer/questionfromtopic/{nr}")
     public List<String> getQuestionFromTopic(@PathVariable("nr") Long t_id) {
-        return trainerService.getQFromTopic(t_id);
-    }
+        return trainerService.getQFromTopic(t_id); }
 
     @CrossOrigin            // toob kõikidest teemadest ühe küsimuse koos vastustega
     @GetMapping("trainer/testpackage")
@@ -78,7 +75,6 @@ public class TrainerController {
     @CrossOrigin            // saadab vastuse answer_log andmebaasi
     @PostMapping("trainer/submitAnswer")
     public SubmitAnswerResponse submitAnswer(@RequestBody ResultBack result) {
-        return trainerService.submitAnswer(result);
-    }
+        return trainerService.submitAnswer(result); }
 
 }

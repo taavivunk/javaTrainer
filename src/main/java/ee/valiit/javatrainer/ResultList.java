@@ -1,13 +1,15 @@
 package ee.valiit.javatrainer;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ResultList {
 
-        private String name;
-        private Long resultId;
-        private Long result;
-        private Timestamp timestamp;
+    private String name;
+    private Long resultId;
+    private Long result;
+    private LocalDateTime timestamp;
 
     public String getName() {
         return name;
@@ -33,11 +35,11 @@ public class ResultList {
         this.result = result;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public String getTimestamp() {
+        return timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }
