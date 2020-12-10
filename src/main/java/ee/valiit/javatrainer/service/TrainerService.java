@@ -1,6 +1,5 @@
 package ee.valiit.javatrainer.service;
 
-
 import ee.valiit.javatrainer.AnswerSet;
 import ee.valiit.javatrainer.ResultList;
 import ee.valiit.javatrainer.User;
@@ -12,11 +11,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 @Service
 public class TrainerService {
@@ -38,7 +35,6 @@ public class TrainerService {
                     .signWith(SignatureAlgorithm.HS256, "secret")
                     .claim("userName", user.getUserName());
             String jwt = builder.compact();
-
             return jwt;
         }
         else {
@@ -47,7 +43,6 @@ public class TrainerService {
 }
 
     public String newQuestionSet(QuestionRequest questionRequest) {
-        // insert question
         String question = questionRequest.getQuestion();
         Long topic = questionRequest.getTopicId();
         // käib repos ja lisab küsimuse aga toob ka tagasi küsimuse id q_id
@@ -79,6 +74,12 @@ public class TrainerService {
             return result;
         }
     }
+
+    public List getAll() {
+        List<QuestionsAndAnswers> result = trainerRepository.getQuestionsAndAnswers();
+        return result;
+    }
+
 
     public List getAnswersAndId(Long q_id) {  //toob answerite tabelist vastused+id vastavalt ette antud küsimuse id-le
         List<AnswerAndIdRequest> answerTableall = trainerRepository.getAnswersAndIds(q_id);

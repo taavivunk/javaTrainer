@@ -20,7 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/trainer/getresults").permitAll()
+                .antMatchers("/trainer/getresults").authenticated()
+                .antMatchers("/trainer/testpackage").authenticated()
                 .and()
                 .addFilterBefore(new JwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable();

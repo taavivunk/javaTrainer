@@ -7,123 +7,71 @@
 </head>
 <body>
 
-<h1>JAVA TRAINER | Küsimuste sisestamine </h1>
+<h1> javaTrainer | Küsimuste sisestamine </h1>
+<h3> Vali teema:</h3>
 
-<h4> Vali teema:</h4>
-
-<table width="200px" border="1" align="left">
-
-    <tr>
-        <td> 1. Movie</td>
-        <td><input type="radio" name="1" value="1"></td>
-    </tr>
-
-    <tr>
-        <td> 2. Disney</td>
-        <td><input type="radio" name="1" value="2"></td>
-    </tr>
-
-    <tr>
-        <td> 3. Star Wars</td>
-        <td><input type="radio" name="1" value="3"></td>
-    </tr>
-
-    <td> 4. Harry Potter</td>
-    <td><input type="radio" name="1" value="4"></td>
-    </tr>
-
-    <td> 5. Friends</td>
-    <td><input type="radio" name="1" value="5"></td>
-    </tr>
-
-    <td> 6. Game of Trones</td>
-    <td><input type="radio" name="1" value="6"></td>
-    </tr>
-
-    <td> 7. Music</td>
-    <td><input type="radio" name="1" value="7"></td>
-    </tr>
-
+<table width="235px" border="1" align="left">
+    <tr><td> 1. Movie</td><td><input type="radio" name="1" value="1"></td></tr>
+    <tr><td> 2. Disney</td><td><input type="radio" name="1" value="2"></td></tr>
+    <tr><td> 3. Star Wars</td><td><input type="radio" name="1" value="3"></td></tr>
+    <tr><td> 4. Harry Potter</td><td><input type="radio" name="1" value="4"></td></tr>
+    <tr><td> 5. Friends</td><td><input type="radio" name="1" value="5"></td></tr>
+    <tr><td> 6. Game of Thrones</td><td><input type="radio" name="1" value="6"></td></tr>
+    <tr><td> 7. Music</td><td><input type="radio" name="1" value="7"></td></tr>
 </table>
 
 <br><br><br><br><br><br><br><br><br><br><br>
 
 <table width="490px" border="1" align="left">
 
-    <tr>
-        <td><h4> Sisesta küsimus:</h4></td>
-        <td><textarea id="question" type="text"></textarea></td>
-
-
-    </tr>
-    <tr>
-        <td><h4> Sisesta vastus (1):</h4></td>
+    <tr><td><h3> Sisesta küsimus:</h3></td><td><textarea id="question" type="text"></textarea></td></tr>
+    <tr><td><h3> Sisesta vastus (1):</h3></td>
         <td>
-
             <table border="0">
-                <tr>
-                    <td><textarea id="answer1"> </textarea></td>
-                    <td> true <input id="a1" align="right" type="radio" name="2"></td>
-                </tr>
+                <tr><td><textarea id="answer1"> </textarea></td>
+                    <td> true <input id="a1" align="right" type="radio" name="2"></td></tr>
             </table>
-
         </td>
-
     </tr>
     <tr>
-        <td><h4> Sisesta vastus (2):</h4></td>
+        <td><h3> Sisesta vastus (2):</h3></td>
         <td>
-
             <table border="0">
-                <tr>
-                    <td><textarea id="answer2"> </textarea></td>
+                <tr><td><textarea id="answer2"> </textarea></td>
                     <td> true <input id="a2" align="right" type="radio" name="2"></td>
                 </tr>
             </table>
-
         </td>
-
     </tr>
     <tr>
-        <td><h4> Sisesta vastus (3):</h4></td>
+        <td><h3> Sisesta vastus (3):</h3></td>
         <td>
-
             <table border="0">
-                <tr>
-                    <td><textarea id="answer3"> </textarea></td>
+                <tr><td><textarea id="answer3"> </textarea></td>
                     <td> true <input id="a3" align="right" type="radio" name="2"></td>
                 </tr>
             </table>
-
         </td>
-
     </tr>
     <tr>
-        <td><h4> Sisesta vastus (4):</h4></td>
+        <td><h3> Sisesta vastus (4):</h3></td>
         <td>
-
             <table border="0">
-                <tr>
-                    <td><textarea id="answer4"> </textarea></td>
+                <tr><td><textarea id="answer4"> </textarea></td>
                     <td> true <input id="a4" align="right" type="radio" name="2"></td>
                 </tr>
             </table>
-
         </td>
-
     </tr>
-
 </table>
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <button id="submit"> SISESTA</button>
 
 <script>
-
     let createNew = document.getElementById("submit");
     createNew.onclick = function () {
-
         let radioList = document.getElementsByName("1");
         let topicValue;
         for (let i = 0; i < radioList.length; i++) {
@@ -131,9 +79,7 @@
                 topicValue = radioList[i].value;
             }
         }
-
         let question = document.getElementById("question").value;
-
         let ans1 = document.getElementById("answer1").value;
         let r1 = document.getElementById("a1").checked;
         let ans2 = document.getElementById("answer2").value;
@@ -189,7 +135,6 @@
                 let question = document.getElementById("question").value = "";
             })
     }
-
 
 </script>
 

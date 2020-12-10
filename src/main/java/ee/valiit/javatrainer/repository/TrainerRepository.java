@@ -4,15 +4,17 @@ import ee.valiit.javatrainer.ResultList;
 import ee.valiit.javatrainer.ResultRowMapper;
 import ee.valiit.javatrainer.controller.AnswerAndIdRequest;
 import ee.valiit.javatrainer.controller.AnswerRequest;
+import ee.valiit.javatrainer.controller.QuestionRequest;
+import ee.valiit.javatrainer.controller.QuestionsAndAnswers;
 import ee.valiit.javatrainer.service.AnswerAndIdRowMapper;
 import ee.valiit.javatrainer.service.AnswerRowMapper;
+import ee.valiit.javatrainer.service.QuestionsAndAnswersRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -83,22 +85,26 @@ public class TrainerRepository {
         return result;
     }
 
+    public List<QuestionsAndAnswers> getQuestionsAndAnswers() {
+        String getAnswers = "SELECT * FROM questions q FULL OUTER JOIN answers a ON q.q_id = a.q_id;";
+        Map paraMap = new HashMap();
+        List<QuestionsAndAnswers> result = jdbcTemplate.query(getAnswers, paraMap, new QuestionsAndAnswersRowMapper());
+        return result;
+    }
+
     public List<ResultList> getResults() {
         String getResults = "SELECT * FROM result_list";
         Map paraMap = new HashMap();
         List<ResultList> result = jdbcTemplate.query(getResults, paraMap, new ResultRowMapper());
         return result;
     }
-        // ORDER BY column DESC/ASC;
+
     public List<ResultList> getResultsByParams(String column, String direction) {
         String getResults = "SELECT * FROM result_list" + " ORDER BY " + column + " " + direction + ";";
-
         Map paraMap = new HashMap();
         List<ResultList> result = jdbcTemplate.query(getResults, paraMap, new ResultRowMapper());
         return result;
     }
-
-
 
     public List<AnswerAndIdRequest> getAnswersAndIds(long qId) {
         String getAnswersAndIds = "SELECT * FROM answers where q_id =:var";
